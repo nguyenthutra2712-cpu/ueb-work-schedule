@@ -1,0 +1,605 @@
+<!doctype html>
+<html lang="vi">
+
+<head>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1"
+  >
+
+  <title>UEB Work Schedule</title>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <style>
+
+    *{
+      box-sizing:border-box;
+    }
+
+    body{
+      margin:0;
+
+      min-height:100vh;
+
+      display:flex;
+      align-items:center;
+      justify-content:center;
+
+      padding:24px;
+
+      font-family:
+        Arial,
+        sans-serif;
+
+      background:#f7f7f8;
+    }
+
+    .card{
+      width:100%;
+      max-width:420px;
+
+      padding:28px;
+
+      background:#fff;
+
+      border-radius:18px;
+
+      box-shadow:
+        0 15px 45px
+        rgba(0,0,0,.08);
+    }
+
+    .logo{
+      width:85px;
+      height:85px;
+
+      display:block;
+
+      object-fit:contain;
+
+      margin:
+        0 auto
+        15px;
+    }
+
+    h1{
+      margin:
+        0 0
+        6px;
+
+      text-align:center;
+
+      font-size:25px;
+    }
+
+    .subtitle{
+      margin-bottom:24px;
+
+      color:#777;
+
+      text-align:center;
+
+      font-size:13px;
+    }
+
+    label{
+      display:block;
+
+      margin-top:13px;
+      margin-bottom:5px;
+
+      font-size:12px;
+      font-weight:bold;
+    }
+
+    input{
+      width:100%;
+
+      padding:12px;
+
+      border:
+        1px solid
+        #ddd;
+
+      border-radius:9px;
+
+      outline:none;
+    }
+
+    input:focus{
+      border-color:#97182c;
+    }
+
+    button{
+      width:100%;
+
+      margin-top:12px;
+
+      padding:12px;
+
+      border-radius:9px;
+
+      border:0;
+
+      font-weight:bold;
+
+      cursor:pointer;
+    }
+
+    .primary{
+      margin-top:18px;
+
+      color:#fff;
+
+      background:#97182c;
+    }
+
+    .secondary{
+      color:#97182c;
+
+      background:#fdf1f3;
+    }
+
+    .logout{
+      color:#555;
+
+      background:#eee;
+    }
+
+    #message{
+      margin-top:16px;
+
+      padding:11px;
+
+      display:none;
+
+      border-radius:8px;
+
+      background:#f4f4f5;
+
+      font-size:12px;
+
+      line-height:1.5;
+    }
+
+    #loggedIn{
+      display:none;
+
+      text-align:center;
+    }
+
+    .success{
+      color:#176b57;
+    }
+
+    .email{
+      margin:
+        12px 0;
+
+      color:#97182c;
+
+      font-weight:bold;
+    }
+
+  </style>
+</head>
+
+
+<body>
+
+<div class="card">
+
+  <img
+    class="logo"
+    src="https://ueb.edu.vn/Content/images/logo.png"
+    alt="UEB"
+  >
+
+
+  <div id="loginArea">
+
+    <h1>
+      Lịch công tác UEB
+    </h1>
+
+    <div class="subtitle">
+      Kiểm tra kết nối Supabase
+    </div>
+
+
+    <label>
+      Email
+    </label>
+
+    <input
+      id="email"
+      type="email"
+      placeholder="ten@vnu.edu.vn"
+    >
+
+
+    <label>
+      Mật khẩu
+    </label>
+
+    <input
+      id="password"
+      type="password"
+      placeholder="Tối thiểu 6 ký tự"
+    >
+
+
+    <button
+      id="loginButton"
+      class="primary"
+    >
+      Đăng nhập
+    </button>
+
+
+    <button
+      id="signupButton"
+      class="secondary"
+    >
+      Tạo tài khoản thử
+    </button>
+
+  </div>
+
+
+  <div id="loggedIn">
+
+    <h1 class="success">
+      Kết nối thành công ✓
+    </h1>
+
+    <div>
+      Bạn đang đăng nhập bằng:
+    </div>
+
+    <div
+      id="currentEmail"
+      class="email"
+    ></div>
+
+    <button
+      id="logoutButton"
+      class="logout"
+    >
+      Đăng xuất
+    </button>
+
+  </div>
+
+
+  <div id="message"></div>
+
+</div>
+
+
+<script>
+
+/* =========================================
+   THAY 2 GIÁ TRỊ NÀY
+========================================= */
+
+const SUPABASE_URL =
+  "https://gfnukoiqquflimroxiny.supabase.co";
+
+
+const SUPABASE_KEY =
+  "sb_publishable_ws7k7byj8cPCJcMce6mweA_NwZMI4St";
+
+
+/* =========================================
+   KẾT NỐI
+========================================= */
+
+const db =
+  supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
+  );
+
+
+const emailInput =
+  document.getElementById(
+    "email"
+  );
+
+
+const passwordInput =
+  document.getElementById(
+    "password"
+  );
+
+
+const message =
+  document.getElementById(
+    "message"
+  );
+
+
+function showMessage(text){
+
+  message.style.display =
+    "block";
+
+  message.textContent =
+    text;
+
+}
+
+
+/* =========================================
+   HIỂN THỊ USER
+========================================= */
+
+function showUser(user){
+
+  document
+    .getElementById(
+      "loginArea"
+    )
+    .style.display =
+    "none";
+
+
+  document
+    .getElementById(
+      "loggedIn"
+    )
+    .style.display =
+    "block";
+
+
+  document
+    .getElementById(
+      "currentEmail"
+    )
+    .textContent =
+    user.email;
+
+
+  message.style.display =
+    "none";
+
+}
+
+
+function showLogin(){
+
+  document
+    .getElementById(
+      "loginArea"
+    )
+    .style.display =
+    "block";
+
+
+  document
+    .getElementById(
+      "loggedIn"
+    )
+    .style.display =
+    "none";
+
+}
+
+
+/* =========================================
+   ĐĂNG KÝ
+========================================= */
+
+document
+  .getElementById(
+    "signupButton"
+  )
+  .addEventListener(
+    "click",
+    async () => {
+
+      const email =
+        emailInput
+          .value
+          .trim();
+
+
+      const password =
+        passwordInput
+          .value;
+
+
+      if(
+        !email ||
+        !password
+      ){
+
+        showMessage(
+          "Nhập email và mật khẩu trước."
+        );
+
+        return;
+
+      }
+
+
+      const {
+        data,
+        error
+      } =
+        await db.auth.signUp({
+          email,
+          password
+        });
+
+
+      if(error){
+
+        showMessage(
+          "Lỗi: " +
+          error.message
+        );
+
+        return;
+
+      }
+
+
+      if(
+        data.user &&
+        !data.session
+      ){
+
+        showMessage(
+          "Tài khoản đã được tạo. Kiểm tra email để xác nhận tài khoản rồi quay lại đăng nhập."
+        );
+
+        return;
+
+      }
+
+
+      if(data.user){
+
+        showUser(
+          data.user
+        );
+
+      }
+
+    }
+  );
+
+
+/* =========================================
+   ĐĂNG NHẬP
+========================================= */
+
+document
+  .getElementById(
+    "loginButton"
+  )
+  .addEventListener(
+    "click",
+    async () => {
+
+      const email =
+        emailInput
+          .value
+          .trim();
+
+
+      const password =
+        passwordInput
+          .value;
+
+
+      if(
+        !email ||
+        !password
+      ){
+
+        showMessage(
+          "Nhập email và mật khẩu."
+        );
+
+        return;
+
+      }
+
+
+      const {
+        data,
+        error
+      } =
+        await db.auth
+          .signInWithPassword({
+            email,
+            password
+          });
+
+
+      if(error){
+
+        showMessage(
+          "Đăng nhập chưa thành công: " +
+          error.message
+        );
+
+        return;
+
+      }
+
+
+      showUser(
+        data.user
+      );
+
+    }
+  );
+
+
+/* =========================================
+   LOGOUT
+========================================= */
+
+document
+  .getElementById(
+    "logoutButton"
+  )
+  .addEventListener(
+    "click",
+    async () => {
+
+      await db.auth.signOut();
+
+      showLogin();
+
+      showMessage(
+        "Đã đăng xuất."
+      );
+
+    }
+  );
+
+
+/* =========================================
+   KIỂM TRA SESSION
+========================================= */
+
+async function checkSession(){
+
+  const {
+    data
+  } =
+    await db.auth.getSession();
+
+
+  if(
+    data.session &&
+    data.session.user
+  ){
+
+    showUser(
+      data.session.user
+    );
+
+  }else{
+
+    showLogin();
+
+  }
+
+}
+
+
+checkSession();
+
+</script>
+
+</body>
+</html>
