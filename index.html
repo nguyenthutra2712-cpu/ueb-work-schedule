@@ -13,6 +13,7 @@
 <title>Lịch công tác UEB</title>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="https://unpkg.com/lucide@latest"></script>
 
 
 <style>
@@ -2561,6 +2562,49 @@ button{
   }
 
 }
+.icon{
+  width:16px;
+  height:16px;
+  flex:0 0 auto;
+  stroke-width:1.8;
+}
+
+.nav button{
+  display:flex;
+  align-items:center;
+  gap:9px;
+}
+
+.btn .icon{
+  width:14px;
+  height:14px;
+}
+
+.category{
+  display:inline-flex;
+  align-items:center;
+  gap:5px;
+}
+
+.evidence a,
+.evidence button{
+  display:inline-flex;
+  align-items:center;
+  gap:4px;
+}
+
+.bottom-nav button{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:3px;
+}
+
+.bottom-nav .icon{
+  width:17px;
+  height:17px;
+}
 
 </style>
 
@@ -2688,29 +2732,32 @@ button{
 
   <nav class="nav">
 
-    <button
-      class="active"
-      data-page="schedule"
-      type="button"
-    >
-      ▣ &nbsp; Lịch tuần
-    </button>
+  <button
+    class="active"
+    data-page="schedule"
+    type="button"
+  >
+    <i data-lucide="calendar-days" class="icon"></i>
+    Lịch tuần
+  </button>
 
-    <button
-      data-page="reminders"
-      type="button"
-    >
-      ◌ &nbsp; Nhắc việc
-    </button>
+  <button
+    data-page="reminders"
+    type="button"
+  >
+    <i data-lucide="bell" class="icon"></i>
+    Nhắc việc
+  </button>
 
-    <button
-      data-page="profile"
-      type="button"
-    >
-      ○ &nbsp; Hồ sơ
-    </button>
+  <button
+    data-page="profile"
+    type="button"
+  >
+    <i data-lucide="user-round" class="icon"></i>
+    Hồ sơ
+  </button>
 
-  </nav>
+</nav>
 
 
   <div class="sidebar-user">
@@ -3336,25 +3383,27 @@ button{
     data-page="schedule"
     type="button"
   >
-    ▣<br>LỊCH
+    <i data-lucide="calendar-days" class="icon"></i>
+    LỊCH
   </button>
 
   <button
     data-page="reminders"
     type="button"
   >
-    ◌<br>NHẮC VIỆC
+    <i data-lucide="bell" class="icon"></i>
+    NHẮC VIỆC
   </button>
 
   <button
     data-page="profile"
     type="button"
   >
-    ○<br>HỒ SƠ
+    <i data-lucide="user-round" class="icon"></i>
+    HỒ SƠ
   </button>
 
 </nav>
-
 
 <!-- =====================================================
      QUICK BAR
@@ -3580,27 +3629,32 @@ const TYPES = {
 
   team:{
     label:"Tổ công tác",
-    className:"type-team"
+    className:"type-team",
+    icon:"briefcase-business"
   },
 
   faculty:{
     label:"Khoa/Viện",
-    className:"type-faculty"
+    className:"type-faculty",
+    icon:"building-2"
   },
 
   teach:{
     label:"Dự giờ / Giảng dạy",
-    className:"type-teach"
+    className:"type-teach",
+    icon:"graduation-cap"
   },
 
   field:{
     label:"Công tác ngoài",
-    className:"type-field"
+    className:"type-field",
+    icon:"map-pin"
   },
 
   leave:{
     label:"Nghỉ",
-    className:"type-leave"
+    className:"type-leave",
+    icon:"coffee"
   }
 
 };
@@ -3671,7 +3725,15 @@ let toastTimer;
    4. HELPERS
 ========================================================= */
 
-function $(id){
+function $(id){function refreshIcons(){
+
+  if(window.lucide){
+
+    lucide.createIcons();
+
+  }
+
+}
 
   return document.getElementById(id);
 
@@ -4879,7 +4941,7 @@ function renderSchedule(){
 
     return;
 
-  }
+  refreshIcons();}
 
 
   updateWeekLabel();
@@ -5286,9 +5348,7 @@ function renderCategories(){
   $("categoryChips")
     .innerHTML =
     Object
-      .entries(
-        TYPES
-      )
+      .entries(TYPES)
       .map(
         ([key,type]) => `
 
@@ -5305,17 +5365,24 @@ function renderCategories(){
             data-quick-type="${key}"
             type="button"
           >
-            ${escapeHTML(
-              type.label
-            )}
+
+            <i
+              data-lucide="${type.icon}"
+              class="icon"
+            ></i>
+
+            ${escapeHTML(type.label)}
+
           </button>
 
         `
       )
       .join("");
 
-}
 
+  refreshIcons();
+
+}
 
 /* =========================================================
    19. QUICK
@@ -6125,7 +6192,7 @@ function renderReminders(){
     .innerHTML =
     settingsHTML();
 
-}
+refreshIcons();}
 
 
 /* =========================================================
@@ -6208,7 +6275,7 @@ function renderProfile(){
     .innerHTML =
     settingsHTML();
 
-}
+refreshIcons();}
 
 
 /* =========================================================
