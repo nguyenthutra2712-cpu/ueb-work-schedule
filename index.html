@@ -7,47 +7,91 @@
 
 <meta
   name="viewport"
-  content="width=device-width,initial-scale=1,viewport-fit=cover"
+  content="width=device-width, initial-scale=1, viewport-fit=cover"
 >
 
 <title>Lịch công tác UEB</title>
 
+<!-- SUPABASE -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<!-- FONT -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+
+<link
+  rel="preconnect"
+  href="https://fonts.gstatic.com"
+  crossorigin
+>
+
+<link
+  href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap"
+  rel="stylesheet"
+>
 
 
 <style>
+
+/* =========================================================
+   DESIGN TOKENS
+========================================================= */
 
 :root{
 
   --red:#97182c;
   --red-dark:#731020;
+  --red-hover:#861326;
   --red-soft:#fdf1f3;
+  --red-border:#efcdd5;
 
-  --green:#167260;
+  --green:#19705f;
   --green-soft:#edf8f5;
+  --green-border:#cae6df;
 
-  --blue:#3f679a;
+  --blue:#42699b;
   --blue-soft:#eff4fb;
+  --blue-border:#cedaec;
 
   --gold:#a6761d;
   --gold-soft:#fff7e7;
+  --gold-border:#ecddb9;
 
-  --gray:#74777d;
-  --gray-soft:#f3f3f5;
+  --gray:#73767d;
+  --gray-soft:#f4f4f5;
 
   --ink:#202126;
+  --ink-2:#3f4147;
+
   --muted:#74777f;
+  --muted-2:#94969c;
 
   --bg:#f6f6f8;
+
+  --white:#ffffff;
+
   --line:#e5e5e9;
-  --white:#fff;
+  --line-dark:#d8d8dc;
+
+  --radius:14px;
+  --radius-sm:9px;
 
   --shadow:
-    0 8px 28px
-    rgba(30,20,25,.055);
+    0 8px 30px
+    rgba(36,25,30,.055);
+
+  --font:
+    "Be Vietnam Pro",
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
 
 }
 
+
+/* =========================================================
+   RESET
+========================================================= */
 
 *{
 
@@ -60,6 +104,7 @@ html,
 body{
 
   width:100%;
+  min-width:320px;
   height:100%;
 
   margin:0;
@@ -68,22 +113,28 @@ body{
 
   color:var(--ink);
 
-  font-family:
-    Inter,
-    -apple-system,
-    BlinkMacSystemFont,
-    "Segoe UI",
-    Arial,
-    sans-serif;
+  font-family:var(--font);
+
+  font-size:14px;
+
+  font-weight:400;
+
+  line-height:1.5;
+
+  font-synthesis:none;
+
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
 
 }
 
 
 button,
 input,
-select{
+select,
+textarea{
 
-  font:inherit;
+  font-family:var(--font);
 
 }
 
@@ -95,9 +146,61 @@ button{
 }
 
 
+button,
+input,
+select{
+
+  outline:none;
+
+}
+
+
 .hidden{
 
   display:none !important;
+
+}
+
+
+svg{
+
+  display:block;
+
+}
+
+
+/* =========================================================
+   ICON
+========================================================= */
+
+.icon{
+
+  width:18px;
+  height:18px;
+
+  display:inline-flex;
+
+  align-items:center;
+  justify-content:center;
+
+  flex:0 0 auto;
+
+}
+
+
+.icon svg{
+
+  width:100%;
+  height:100%;
+
+  fill:none;
+
+  stroke:currentColor;
+
+  stroke-width:1.8;
+
+  stroke-linecap:round;
+  stroke-linejoin:round;
 
 }
 
@@ -108,13 +211,13 @@ button{
 
 .card{
 
-  background:#fff;
+  background:var(--white);
 
   border:
     1px solid
     var(--line);
 
-  border-radius:14px;
+  border-radius:var(--radius);
 
   box-shadow:var(--shadow);
 
@@ -123,18 +226,18 @@ button{
 
 .btn{
 
-  min-height:38px;
+  min-height:40px;
 
   display:inline-flex;
 
   align-items:center;
   justify-content:center;
 
-  gap:6px;
+  gap:7px;
 
   padding:
-    8px
-    12px;
+    9px
+    14px;
 
   border:
     1px solid
@@ -142,8 +245,31 @@ button{
 
   border-radius:9px;
 
-  font-size:10px;
-  font-weight:750;
+  font-size:12px;
+
+  font-weight:600;
+
+  line-height:1.2;
+
+  transition:
+    background .15s ease,
+    border-color .15s ease,
+    transform .1s ease;
+
+}
+
+
+.btn:active{
+
+  transform:scale(.985);
+
+}
+
+
+.btn .icon{
+
+  width:15px;
+  height:15px;
 
 }
 
@@ -161,14 +287,14 @@ button{
 
 .btn-primary:hover{
 
-  background:var(--red-dark);
+  background:var(--red-hover);
 
 }
 
 
 .btn-secondary{
 
-  color:#53545a;
+  color:#505259;
 
   background:#fff;
 
@@ -177,13 +303,31 @@ button{
 }
 
 
+.btn-secondary:hover{
+
+  color:var(--red);
+
+  border-color:#d9bec4;
+
+  background:#fffafb;
+
+}
+
+
 .btn-danger{
 
-  color:#9c1930;
+  color:#a11a31;
 
   background:#fff;
 
-  border-color:#efd6dc;
+  border-color:#efd5dc;
+
+}
+
+
+.btn-danger:hover{
+
+  background:#fff7f8;
 
 }
 
@@ -191,41 +335,6 @@ button{
 .full{
 
   width:100%;
-
-}
-
-
-/* =========================================================
-   ICON
-========================================================= */
-
-.i{
-
-  width:16px;
-  height:16px;
-
-  display:inline-block;
-
-  flex:0 0 auto;
-
-}
-
-
-.i svg{
-
-  width:100%;
-  height:100%;
-
-  display:block;
-
-  fill:none;
-
-  stroke:currentColor;
-
-  stroke-width:1.8;
-
-  stroke-linecap:round;
-  stroke-linejoin:round;
 
 }
 
@@ -242,19 +351,19 @@ button{
 
   place-items:center;
 
-  padding:24px;
+  padding:30px;
 
   background:
 
     radial-gradient(
-      circle at 80% 10%,
-      rgba(151,24,44,.12),
+      circle at 80% 15%,
+      rgba(151,24,44,.11),
       transparent 32%
     ),
 
     linear-gradient(
       145deg,
-      #fff,
+      #ffffff,
       #faf7f8
     );
 
@@ -264,11 +373,14 @@ button{
 .auth-card{
 
   width:min(
-    420px,
+    430px,
     100%
   );
 
-  padding:30px;
+  padding:
+    34px
+    34px
+    31px;
 
   background:#fff;
 
@@ -279,8 +391,8 @@ button{
   border-radius:22px;
 
   box-shadow:
-    0 24px 65px
-    rgba(60,15,25,.10);
+    0 25px 70px
+    rgba(70,20,30,.10);
 
 }
 
@@ -296,7 +408,7 @@ button{
 
   margin:
     0 auto
-    14px;
+    15px;
 
 }
 
@@ -307,10 +419,11 @@ button{
 
   color:var(--red);
 
-  font-size:8px;
-  font-weight:850;
+  font-size:9px;
 
-  letter-spacing:.08em;
+  font-weight:700;
+
+  letter-spacing:.07em;
 
 }
 
@@ -318,12 +431,16 @@ button{
 .auth-card h1{
 
   margin:
-    10px 0
-    6px;
+    12px 0
+    7px;
 
   text-align:center;
 
-  font-size:27px;
+  font-size:28px;
+
+  line-height:1.25;
+
+  font-weight:700;
 
   letter-spacing:-.04em;
 
@@ -334,15 +451,15 @@ button{
 
   margin:
     0 0
-    22px;
+    25px;
 
   text-align:center;
 
   color:var(--muted);
 
-  font-size:11px;
+  font-size:12px;
 
-  line-height:1.5;
+  line-height:1.6;
 
 }
 
@@ -351,19 +468,22 @@ button{
 
   display:block;
 
-  margin-bottom:11px;
+  margin-bottom:14px;
 
 }
 
 
-.field span{
+.field > span{
 
   display:block;
 
-  margin-bottom:5px;
+  margin-bottom:6px;
 
-  font-size:9px;
-  font-weight:750;
+  color:#36383e;
+
+  font-size:11px;
+
+  font-weight:600;
 
 }
 
@@ -373,21 +493,38 @@ button{
 
   width:100%;
 
-  min-height:40px;
+  min-height:43px;
 
   padding:
-    9px
-    10px;
+    10px
+    12px;
 
-  outline:none;
+  color:var(--ink);
 
   background:#fff;
 
   border:
     1px solid
-    #d8d8dc;
+    var(--line-dark);
 
   border-radius:9px;
+
+  font-size:13px;
+
+  font-weight:400;
+
+  transition:
+    border-color .15s ease,
+    box-shadow .15s ease;
+
+}
+
+
+.field input::placeholder{
+
+  color:var(--muted-2);
+
+  font-weight:400;
 
 }
 
@@ -412,7 +549,7 @@ button{
 
   background:var(--red-soft);
 
-  border-color:#efdae0;
+  border-color:#eed6dc;
 
 }
 
@@ -421,19 +558,19 @@ button{
 
   display:none;
 
-  margin-top:14px;
+  margin-top:15px;
 
-  padding:10px;
+  padding:11px;
 
-  color:#595b61;
+  color:#55575d;
 
   background:#f5f5f6;
 
   border-radius:8px;
 
-  font-size:9px;
+  font-size:11px;
 
-  line-height:1.5;
+  line-height:1.55;
 
 }
 
@@ -462,7 +599,7 @@ button{
   display:grid;
 
   grid-template-columns:
-    218px
+    230px
     minmax(0,1fr);
 
 }
@@ -481,8 +618,8 @@ button{
   flex-direction:column;
 
   padding:
-    19px
-    13px;
+    22px
+    14px;
 
   background:#fff;
 
@@ -495,9 +632,11 @@ button{
 
 .brand{
 
-  padding-bottom:16px;
+  padding:
+    0 7px
+    20px;
 
-  margin-bottom:16px;
+  margin-bottom:19px;
 
   text-align:center;
 
@@ -510,31 +649,42 @@ button{
 
 .brand img{
 
-  width:54px;
-  height:54px;
+  width:58px;
+  height:58px;
+
+  display:block;
 
   object-fit:contain;
+
+  margin:auto;
 
 }
 
 
 .brand-name{
 
-  margin-top:5px;
+  margin-top:7px;
 
   font-size:12px;
-  font-weight:850;
+
+  font-weight:700;
+
+  letter-spacing:-.025em;
 
 }
 
 
 .brand-sub{
 
-  margin-top:3px;
+  margin-top:4px;
 
   color:var(--muted);
 
   font-size:7px;
+
+  font-weight:500;
+
+  line-height:1.5;
 
 }
 
@@ -543,28 +693,30 @@ button{
 
   display:grid;
 
-  gap:5px;
+  gap:6px;
 
 }
 
 
 .nav button{
 
-  min-height:42px;
+  width:100%;
+
+  min-height:44px;
 
   display:flex;
 
   align-items:center;
 
-  gap:9px;
+  gap:10px;
 
   padding:
-    9px
-    11px;
+    10px
+    12px;
 
   text-align:left;
 
-  color:#65676d;
+  color:#63666d;
 
   background:transparent;
 
@@ -572,10 +724,22 @@ button{
     1px solid
     transparent;
 
-  border-radius:9px;
+  border-radius:10px;
 
-  font-size:10px;
-  font-weight:750;
+  font-size:12px;
+
+  font-weight:500;
+
+  transition:.15s ease;
+
+}
+
+
+.nav button:hover{
+
+  color:var(--red);
+
+  background:#fff9fa;
 
 }
 
@@ -586,11 +750,21 @@ button{
 
   background:var(--red-soft);
 
-  border-color:#edd4da;
+  border-color:#edd3da;
 
   box-shadow:
     inset 3px 0
     var(--red);
+
+  font-weight:600;
+
+}
+
+
+.nav .icon{
+
+  width:17px;
+  height:17px;
 
 }
 
@@ -600,8 +774,8 @@ button{
   margin-top:auto;
 
   padding:
-    13px
-    4px
+    15px
+    5px
     0;
 
   border-top:
@@ -617,15 +791,15 @@ button{
 
   align-items:center;
 
-  gap:8px;
+  gap:9px;
 
 }
 
 
 .avatar{
 
-  width:34px;
-  height:34px;
+  width:36px;
+  height:36px;
 
   flex:0 0 auto;
 
@@ -644,8 +818,9 @@ button{
 
   border-radius:50%;
 
-  font-size:8px;
-  font-weight:850;
+  font-size:10px;
+
+  font-weight:700;
 
 }
 
@@ -654,14 +829,16 @@ button{
 
   display:block;
 
-  max-width:135px;
+  max-width:142px;
 
   overflow:hidden;
 
   white-space:nowrap;
   text-overflow:ellipsis;
 
-  font-size:8px;
+  font-size:9px;
+
+  font-weight:600;
 
 }
 
@@ -674,7 +851,9 @@ button{
 
   color:var(--muted);
 
-  font-size:7px;
+  font-size:8px;
+
+  font-weight:400;
 
 }
 
@@ -707,22 +886,22 @@ button{
 
   width:100%;
 
-  max-width:1140px;
+  max-width:1200px;
 
   margin:
     0 auto;
 
   padding:
-    26px
-    27px
-    55px;
+    30px
+    32px
+    60px;
 
 }
 
 
 .heading{
 
-  margin-bottom:18px;
+  margin-bottom:20px;
 
 }
 
@@ -731,7 +910,13 @@ button{
 
   margin:0;
 
-  font-size:25px;
+  color:var(--ink);
+
+  font-size:27px;
+
+  line-height:1.25;
+
+  font-weight:700;
 
   letter-spacing:-.04em;
 
@@ -741,12 +926,16 @@ button{
 .heading p{
 
   margin:
-    5px 0
+    6px 0
     0;
 
   color:var(--muted);
 
-  font-size:9px;
+  font-size:11px;
+
+  font-weight:400;
+
+  line-height:1.6;
 
 }
 
@@ -761,16 +950,16 @@ button{
 
   align-items:center;
 
-  gap:7px;
+  gap:8px;
 
-  margin-bottom:12px;
+  margin-bottom:14px;
 
 }
 
 
 .week-arrow{
 
-  width:37px;
+  width:40px;
 
   padding:0;
 
@@ -779,12 +968,15 @@ button{
 
 .week-label{
 
-  min-width:220px;
+  min-width:235px;
 
   text-align:center;
 
-  font-size:10px;
-  font-weight:800;
+  color:#33353a;
+
+  font-size:12px;
+
+  font-weight:600;
 
 }
 
@@ -811,7 +1003,7 @@ button{
 
   overflow:hidden;
 
-  margin-bottom:13px;
+  margin-bottom:15px;
 
 }
 
@@ -819,8 +1011,8 @@ button{
 .stat{
 
   padding:
-    12px
-    14px;
+    15px
+    17px;
 
   border-right:
     1px solid
@@ -840,7 +1032,15 @@ button{
 
   display:block;
 
-  font-size:19px;
+  color:var(--ink);
+
+  font-size:22px;
+
+  line-height:1.2;
+
+  font-weight:700;
+
+  letter-spacing:-.04em;
 
 }
 
@@ -849,11 +1049,13 @@ button{
 
   display:block;
 
-  margin-top:2px;
+  margin-top:4px;
 
   color:var(--muted);
 
-  font-size:8px;
+  font-size:9px;
+
+  font-weight:500;
 
 }
 
@@ -868,9 +1070,9 @@ button{
 
   grid-template-columns:
     minmax(0,1fr)
-    270px;
+    285px;
 
-  gap:15px;
+  gap:17px;
 
   align-items:start;
 
@@ -890,20 +1092,20 @@ button{
 
   display:grid;
 
-  gap:11px;
+  gap:13px;
 
 }
 
 
 /* =========================================================
-   DAYS
+   DAY
 ========================================================= */
 
 .day{
 
   padding:
-    12px
-    13px;
+    14px
+    15px;
 
   border-bottom:
     1px solid
@@ -921,23 +1123,26 @@ button{
 
 .day-head{
 
-  min-height:24px;
+  min-height:27px;
 
   display:flex;
 
   align-items:center;
 
-  gap:6px;
+  gap:7px;
 
-  margin-bottom:5px;
+  margin-bottom:6px;
 
 }
 
 
 .day-title{
 
-  font-size:9px;
-  font-weight:850;
+  font-size:10px;
+
+  font-weight:700;
+
+  letter-spacing:.02em;
 
 }
 
@@ -946,7 +1151,9 @@ button{
 
   color:var(--muted);
 
-  font-size:8px;
+  font-size:9px;
+
+  font-weight:400;
 
 }
 
@@ -955,11 +1162,11 @@ button{
 
   margin-left:auto;
 
-  min-height:25px;
+  min-height:28px;
 
   padding:
-    4px
-    7px;
+    5px
+    8px;
 
   color:#686a70;
 
@@ -969,10 +1176,11 @@ button{
     1px solid
     #d9d9dc;
 
-  border-radius:6px;
+  border-radius:7px;
 
-  font-size:7px;
-  font-weight:800;
+  font-size:8px;
+
+  font-weight:600;
 
 }
 
@@ -994,7 +1202,9 @@ button{
 
 .slot-wrap{
 
-  margin-top:5px;
+  width:100%;
+
+  margin-top:6px;
 
 }
 
@@ -1005,35 +1215,50 @@ button{
 
   width:100%;
 
-  min-height:58px;
+  min-height:63px;
 
   display:grid;
 
   grid-template-columns:
-    48px
+    53px
     minmax(0,1fr)
-    92px;
+    105px;
 
   align-items:center;
 
-  gap:8px;
+  gap:10px;
 
   padding:
-    8px
-    10px
-    8px
-    13px;
+    9px
+    12px
+    9px
+    15px;
 
   overflow:hidden;
 
-  text-align:left;
-
   color:inherit;
+
+  text-align:left;
 
   border:
     1px solid;
 
-  border-radius:9px;
+  border-radius:10px;
+
+  transition:
+    transform .13s ease,
+    box-shadow .13s ease;
+
+}
+
+
+.slot:hover{
+
+  transform:translateY(-1px);
+
+  box-shadow:
+    0 5px 15px
+    rgba(30,25,27,.055);
 
 }
 
@@ -1045,12 +1270,18 @@ button{
   position:absolute;
 
   left:0;
-  top:8px;
-  bottom:8px;
+  top:9px;
+  bottom:9px;
 
   width:3px;
 
   background:currentColor;
+
+  border-radius:
+    0
+    2px
+    2px
+    0;
 
 }
 
@@ -1059,8 +1290,9 @@ button{
 
   white-space:nowrap;
 
-  font-size:7px;
-  font-weight:850;
+  font-size:8px;
+
+  font-weight:700;
 
 }
 
@@ -1074,35 +1306,34 @@ button{
 
 .slot-title{
 
+  min-width:0;
+
   display:flex;
 
   align-items:center;
 
-  gap:5px;
-
-  min-width:0;
+  gap:6px;
 
   overflow:hidden;
 
-  white-space:nowrap;
+  font-size:11px;
 
-  text-overflow:ellipsis;
-
-  font-size:10px;
-  font-weight:800;
+  font-weight:600;
 
 }
 
 
-.slot-title .i{
+.slot-title .icon{
 
-  width:13px;
-  height:13px;
+  width:14px;
+  height:14px;
 
 }
 
 
 .slot-title-text{
+
+  min-width:0;
 
   overflow:hidden;
 
@@ -1116,16 +1347,18 @@ button{
 
   display:block;
 
-  margin-top:2px;
+  margin-top:3px;
 
   overflow:hidden;
 
   white-space:nowrap;
   text-overflow:ellipsis;
 
-  color:#676a71;
+  color:#696b72;
 
-  font-size:7px;
+  font-size:9px;
+
+  font-weight:400;
 
 }
 
@@ -1139,8 +1372,9 @@ button{
 
   text-align:right;
 
-  font-size:6px;
-  font-weight:800;
+  font-size:8px;
+
+  font-weight:600;
 
 }
 
@@ -1151,7 +1385,7 @@ button{
 
   background:var(--red-soft);
 
-  border-color:#efcad3;
+  border-color:var(--red-border);
 
 }
 
@@ -1162,7 +1396,7 @@ button{
 
   background:var(--green-soft);
 
-  border-color:#cce7e0;
+  border-color:var(--green-border);
 
 }
 
@@ -1173,7 +1407,7 @@ button{
 
   background:var(--blue-soft);
 
-  border-color:#ccd9ea;
+  border-color:var(--blue-border);
 
 }
 
@@ -1184,7 +1418,7 @@ button{
 
   background:var(--gold-soft);
 
-  border-color:#eadbb5;
+  border-color:var(--gold-border);
 
 }
 
@@ -1225,14 +1459,14 @@ button{
 
   flex-wrap:wrap;
 
-  gap:8px;
+  gap:9px;
 
   padding:
-    5px
-    9px
+    6px
+    10px
     1px;
 
-  font-size:7px;
+  font-size:9px;
 
 }
 
@@ -1244,22 +1478,22 @@ button{
 
   align-items:center;
 
-  gap:4px;
+  gap:5px;
 
 }
 
 
-.evidence .i{
+.evidence .icon{
 
-  width:12px;
-  height:12px;
+  width:13px;
+  height:13px;
 
 }
 
 
 .evidence a{
 
-  max-width:240px;
+  max-width:260px;
 
   overflow:hidden;
 
@@ -1268,7 +1502,7 @@ button{
 
   color:var(--red);
 
-  font-weight:750;
+  font-weight:500;
 
   text-decoration:none;
 
@@ -1292,8 +1526,9 @@ button{
 
   border:0;
 
-  font-size:7px;
-  font-weight:700;
+  font-size:9px;
+
+  font-weight:500;
 
 }
 
@@ -1306,12 +1541,12 @@ button{
 
 
 /* =========================================================
-   QUICK SELECT
+   QUICK
 ========================================================= */
 
 .selecting .slot{
 
-  padding-right:40px;
+  padding-right:42px;
 
 }
 
@@ -1322,15 +1557,15 @@ button{
 
   position:absolute;
 
-  right:10px;
+  right:11px;
 
-  width:16px;
-  height:16px;
+  width:17px;
+  height:17px;
 
   background:#fff;
 
   border:
-    1.3px solid
+    1.4px solid
     #aaa;
 
   border-radius:50%;
@@ -1366,7 +1601,8 @@ button{
   border-color:var(--red);
 
   font-size:9px;
-  font-weight:850;
+
+  font-weight:700;
 
 }
 
@@ -1379,9 +1615,9 @@ button{
 
   position:sticky;
 
-  top:14px;
+  top:16px;
 
-  padding:14px;
+  padding:16px;
 
 }
 
@@ -1390,24 +1626,30 @@ button{
 
   margin:
     0 0
-    4px;
+    5px;
 
-  font-size:12px;
+  font-size:14px;
+
+  font-weight:700;
+
+  letter-spacing:-.02em;
 
 }
 
 
-.quick p{
+.quick > p{
 
   margin:
     0 0
-    10px;
+    12px;
 
   color:var(--muted);
 
-  font-size:8px;
+  font-size:10px;
 
-  line-height:1.5;
+  font-weight:400;
+
+  line-height:1.55;
 
 }
 
@@ -1416,11 +1658,11 @@ button{
 
   display:flex;
 
-  gap:5px;
+  gap:6px;
 
   overflow-x:auto;
 
-  padding-bottom:4px;
+  padding-bottom:5px;
 
   scrollbar-width:none;
 
@@ -1436,20 +1678,19 @@ button{
 
 .category{
 
-  flex:
-    0 0 auto;
+  min-height:33px;
 
-  min-height:30px;
+  flex:0 0 auto;
 
   display:inline-flex;
 
   align-items:center;
 
-  gap:5px;
+  gap:6px;
 
   padding:
-    6px
-    8px;
+    7px
+    9px;
 
   white-space:nowrap;
 
@@ -1463,36 +1704,38 @@ button{
 
   border-radius:999px;
 
-  font-size:7px;
-  font-weight:750;
+  font-size:9px;
+
+  font-weight:500;
 
 }
 
 
-.category .i{
+.category .icon{
 
-  width:12px;
-  height:12px;
+  width:13px;
+  height:13px;
 
 }
 
 
+.category:hover,
 .category.active{
 
   color:var(--red);
 
   background:var(--red-soft);
 
-  border-color:#da99a6;
+  border-color:#d89ba7;
 
 }
 
 
 .quick-box{
 
-  margin-top:8px;
+  margin-top:9px;
 
-  padding:9px;
+  padding:11px;
 
   background:#fff8f9;
 
@@ -1500,7 +1743,7 @@ button{
     1px solid
     #efdcdf;
 
-  border-radius:8px;
+  border-radius:9px;
 
 }
 
@@ -1509,19 +1752,22 @@ button{
 
   color:var(--red);
 
-  font-size:8px;
-  font-weight:850;
+  font-size:10px;
+
+  font-weight:600;
 
 }
 
 
 .quick-help{
 
-  margin-top:3px;
+  margin-top:4px;
 
   color:var(--muted);
 
-  font-size:7px;
+  font-size:9px;
+
+  line-height:1.45;
 
 }
 
@@ -1532,30 +1778,22 @@ button{
 
   flex-wrap:wrap;
 
-  gap:5px;
+  gap:6px;
 
-  margin-top:7px;
+  margin-top:9px;
 
 }
 
 
 .quick-tools .btn{
 
-  min-height:28px;
+  min-height:31px;
 
   padding:
-    5px
-    7px;
+    6px
+    8px;
 
-  font-size:7px;
-
-}
-
-
-.btn .i{
-
-  width:13px;
-  height:13px;
+  font-size:9px;
 
 }
 
@@ -1566,7 +1804,7 @@ button{
 
 .summary-card{
 
-  padding:12px;
+  padding:14px;
 
 }
 
@@ -1575,19 +1813,20 @@ button{
 
   display:flex;
 
+  align-items:center;
   justify-content:space-between;
 
   gap:8px;
 
   padding:
-    7px
+    9px
     0;
 
   border-bottom:
     1px solid
     var(--line);
 
-  font-size:8px;
+  font-size:10px;
 
 }
 
@@ -1595,6 +1834,22 @@ button{
 .summary-row:last-child{
 
   border-bottom:0;
+
+}
+
+
+.summary-row span{
+
+  color:var(--muted);
+
+}
+
+
+.summary-row strong{
+
+  color:var(--ink);
+
+  font-weight:600;
 
 }
 
@@ -1610,24 +1865,24 @@ button{
   z-index:1500;
 
   left:50%;
-  bottom:14px;
+  bottom:16px;
 
   transform:
     translateX(-50%);
 
-  min-width:350px;
+  min-width:370px;
 
   display:flex;
 
   align-items:center;
 
-  gap:6px;
+  gap:7px;
 
   padding:
-    8px
     9px
-    8px
-    12px;
+    10px
+    9px
+    14px;
 
   background:
     rgba(255,255,255,.98);
@@ -1636,10 +1891,10 @@ button{
     1px solid
     #ead7db;
 
-  border-radius:12px;
+  border-radius:13px;
 
   box-shadow:
-    0 13px 32px
+    0 14px 34px
     rgba(45,25,30,.17);
 
 }
@@ -1649,23 +1904,24 @@ button{
 
   flex:1;
 
-  font-size:8px;
-  font-weight:800;
+  font-size:10px;
+
+  font-weight:600;
 
 }
 
 
 .selection-bar .btn{
 
-  min-height:31px;
+  min-height:33px;
 
-  font-size:7px;
+  font-size:9px;
 
 }
 
 
 /* =========================================================
-   REMINDERS / PROFILE
+   OTHER PAGES
 ========================================================= */
 
 .two-col{
@@ -1674,9 +1930,9 @@ button{
 
   grid-template-columns:
     minmax(0,1fr)
-    310px;
+    330px;
 
-  gap:15px;
+  gap:17px;
 
   align-items:start;
 
@@ -1692,7 +1948,7 @@ button{
 
 .reminder-group{
 
-  padding:15px;
+  padding:18px;
 
   border-bottom:
     1px solid
@@ -1710,27 +1966,28 @@ button{
 
 .kicker{
 
-  margin-bottom:7px;
+  margin-bottom:9px;
 
   color:var(--red);
 
-  font-size:7px;
-  font-weight:850;
+  font-size:9px;
 
-  letter-spacing:.07em;
+  font-weight:700;
+
+  letter-spacing:.055em;
 
 }
 
 
 .reminder-card{
 
-  padding:12px;
+  padding:14px;
 
   border:
     1px solid
     var(--line);
 
-  border-radius:9px;
+  border-radius:10px;
 
 }
 
@@ -1744,7 +2001,9 @@ button{
 
 .reminder-card strong{
 
-  font-size:10px;
+  font-size:12px;
+
+  font-weight:600;
 
 }
 
@@ -1752,14 +2011,16 @@ button{
 .reminder-card p{
 
   margin:
-    4px 0
-    9px;
+    5px 0
+    11px;
 
   color:var(--muted);
 
-  font-size:8px;
+  font-size:10px;
 
-  line-height:1.5;
+  font-weight:400;
+
+  line-height:1.55;
 
 }
 
@@ -1767,7 +2028,7 @@ button{
 .settings,
 .profile-card{
 
-  padding:15px;
+  padding:18px;
 
 }
 
@@ -1776,9 +2037,13 @@ button{
 
   margin:
     0 0
-    5px;
+    6px;
 
-  font-size:11px;
+  font-size:14px;
+
+  font-weight:700;
+
+  letter-spacing:-.02em;
 
 }
 
@@ -1789,10 +2054,10 @@ button{
 
   align-items:center;
 
-  gap:8px;
+  gap:10px;
 
   padding:
-    10px
+    12px
     0;
 
   border-bottom:
@@ -1806,6 +2071,8 @@ button{
 
   flex:1;
 
+  min-width:0;
+
 }
 
 
@@ -1813,7 +2080,11 @@ button{
 
   display:block;
 
-  font-size:8px;
+  color:#36383e;
+
+  font-size:10px;
+
+  font-weight:600;
 
 }
 
@@ -1822,19 +2093,25 @@ button{
 
   display:block;
 
-  margin-top:2px;
+  margin-top:3px;
 
   color:var(--muted);
 
-  font-size:7px;
+  font-size:9px;
+
+  font-weight:400;
+
+  line-height:1.45;
 
 }
 
 
 .toggle{
 
-  width:35px;
-  height:20px;
+  width:39px;
+  height:22px;
+
+  flex:0 0 auto;
 
   padding:2px;
 
@@ -1853,14 +2130,14 @@ button{
 
   display:block;
 
-  width:16px;
-  height:16px;
+  width:18px;
+  height:18px;
 
   background:#fff;
 
   border-radius:50%;
 
-  transition:.18s;
+  transition:.18s ease;
 
 }
 
@@ -1875,10 +2152,14 @@ button{
 .toggle.on::after{
 
   transform:
-    translateX(15px);
+    translateX(17px);
 
 }
 
+
+/* =========================================================
+   PROFILE
+========================================================= */
 
 .profile-head{
 
@@ -1886,27 +2167,47 @@ button{
 
   align-items:center;
 
-  gap:11px;
+  gap:13px;
 
-  margin-bottom:14px;
+  margin-bottom:17px;
 
 }
 
 
 .profile-head .avatar{
 
-  width:52px;
-  height:52px;
+  width:55px;
+  height:55px;
 
-  font-size:13px;
+  font-size:14px;
 
 }
 
 
 .profile-name{
 
-  font-size:14px;
-  font-weight:850;
+  color:var(--ink);
+
+  font-size:15px;
+
+  font-weight:700;
+
+  line-height:1.35;
+
+  letter-spacing:-.025em;
+
+}
+
+
+.account-unit{
+
+  margin-top:3px;
+
+  color:#4f5157;
+
+  font-size:13px;
+
+  font-weight:400;
 
 }
 
@@ -1917,7 +2218,9 @@ button{
 
   color:var(--red);
 
-  font-size:8px;
+  font-size:9px;
+
+  font-weight:500;
 
 }
 
@@ -1926,7 +2229,7 @@ button{
 
   display:inline-block;
 
-  margin-top:5px;
+  margin-top:6px;
 
   padding:
     3px
@@ -1936,23 +2239,13 @@ button{
 
   background:var(--red-soft);
 
-  border-radius:4px;
+  border-radius:5px;
 
-  font-size:6px;
-  font-weight:850;
+  font-size:7px;
 
-}
+  font-weight:700;
 
-
-.profile-form{
-
-  margin-top:14px;
-
-  padding-top:14px;
-
-  border-top:
-    1px solid
-    var(--line);
+  letter-spacing:.025em;
 
 }
 
@@ -1966,13 +2259,13 @@ button{
 
   overflow:hidden;
 
-  margin-top:14px;
+  margin-top:16px;
 
   border:
     1px solid
     var(--line);
 
-  border-radius:9px;
+  border-radius:10px;
 
 }
 
@@ -1980,8 +2273,8 @@ button{
 .profile-stat{
 
   padding:
-    10px
-    8px;
+    13px
+    10px;
 
   border-right:
     1px solid
@@ -2001,7 +2294,11 @@ button{
 
   display:block;
 
-  font-size:16px;
+  font-size:18px;
+
+  font-weight:700;
+
+  line-height:1.2;
 
 }
 
@@ -2010,11 +2307,26 @@ button{
 
   display:block;
 
-  margin-top:2px;
+  margin-top:4px;
 
   color:var(--muted);
 
-  font-size:7px;
+  font-size:8px;
+
+  font-weight:400;
+
+}
+
+
+.profile-form{
+
+  margin-top:17px;
+
+  padding-top:17px;
+
+  border-top:
+    1px solid
+    var(--line);
 
 }
 
@@ -2036,13 +2348,12 @@ button{
   align-items:center;
   justify-content:center;
 
-  padding:16px;
+  padding:18px;
 
   background:
     rgba(20,20,23,.42);
 
-  backdrop-filter:
-    blur(3px);
+  backdrop-filter:blur(3px);
 
 }
 
@@ -2050,7 +2361,7 @@ button{
 .modal{
 
   width:min(
-    460px,
+    470px,
     100%
   );
 
@@ -2058,10 +2369,10 @@ button{
 
   background:#fff;
 
-  border-radius:15px;
+  border-radius:16px;
 
   box-shadow:
-    0 24px 70px
+    0 24px 75px
     rgba(0,0,0,.22);
 
 }
@@ -2073,9 +2384,11 @@ button{
 
   align-items:center;
 
+  gap:10px;
+
   padding:
-    13px
-    14px;
+    15px
+    16px;
 
   border-bottom:
     1px solid
@@ -2088,15 +2401,19 @@ button{
 
   margin:0;
 
-  font-size:13px;
+  font-size:15px;
+
+  font-weight:700;
+
+  letter-spacing:-.02em;
 
 }
 
 
 .modal-close{
 
-  width:31px;
-  height:31px;
+  width:33px;
+  height:33px;
 
   margin-left:auto;
 
@@ -2104,28 +2421,30 @@ button{
 
   place-items:center;
 
+  color:#55575d;
+
   background:#fff;
 
   border:
     1px solid
     #ddd;
 
-  border-radius:7px;
+  border-radius:8px;
 
 }
 
 
-.modal-close .i{
+.modal-close .icon{
 
-  width:14px;
-  height:14px;
+  width:15px;
+  height:15px;
 
 }
 
 
 .modal-body{
 
-  padding:14px;
+  padding:16px;
 
 }
 
@@ -2134,11 +2453,13 @@ button{
 
   display:flex;
 
-  gap:6px;
+  align-items:center;
+
+  gap:7px;
 
   padding:
-    11px
-    14px;
+    12px
+    16px;
 
   border-top:
     1px solid
@@ -2164,7 +2485,7 @@ button{
 
   z-index:6000;
 
-  top:13px;
+  top:15px;
   left:50%;
 
   transform:
@@ -2175,8 +2496,8 @@ button{
   pointer-events:none;
 
   padding:
-    9px
-    12px;
+    10px
+    14px;
 
   color:#fff;
 
@@ -2184,8 +2505,13 @@ button{
 
   border-radius:9px;
 
-  font-size:8px;
-  font-weight:750;
+  font-size:10px;
+
+  font-weight:500;
+
+  box-shadow:
+    0 12px 30px
+    rgba(0,0,0,.17);
 
   transition:.2s;
 
@@ -2217,8 +2543,7 @@ button{
   background:
     rgba(255,255,255,.78);
 
-  backdrop-filter:
-    blur(3px);
+  backdrop-filter:blur(3px);
 
 }
 
@@ -2229,7 +2554,7 @@ button{
 
   align-items:center;
 
-  gap:8px;
+  gap:9px;
 
   padding:
     14px
@@ -2241,24 +2566,25 @@ button{
     1px solid
     var(--line);
 
-  border-radius:10px;
+  border-radius:11px;
 
   box-shadow:var(--shadow);
 
-  font-size:9px;
-  font-weight:750;
+  font-size:11px;
+
+  font-weight:600;
 
 }
 
 
-.spin{
+.spinner{
 
-  width:14px;
-  height:14px;
+  width:15px;
+  height:15px;
 
   border:
     2px solid
-    #ead7db;
+    #ead8dc;
 
   border-top-color:
     var(--red);
@@ -2266,7 +2592,7 @@ button{
   border-radius:50%;
 
   animation:
-    spin .8s linear infinite;
+    spin .75s linear infinite;
 
 }
 
@@ -2294,7 +2620,7 @@ button{
 }
 
 
-@media(max-width:760px){
+@media(max-width:800px){
 
   #appView{
 
@@ -2322,9 +2648,9 @@ button{
     height:100%;
 
     padding:
-      59px
+      62px
       0
-      64px;
+      67px;
 
     background:#fff;
 
@@ -2341,7 +2667,7 @@ button{
 
     z-index:900;
 
-    height:59px;
+    height:62px;
 
     display:grid;
 
@@ -2354,7 +2680,7 @@ button{
 
     padding:
       0
-      12px;
+      13px;
 
     background:
       rgba(255,255,255,.98);
@@ -2362,6 +2688,8 @@ button{
     border-bottom:
       1px solid
       var(--line);
+
+    backdrop-filter:blur(12px);
 
   }
 
@@ -2374,18 +2702,19 @@ button{
 
     align-items:center;
 
-    gap:5px;
+    gap:6px;
 
-    font-size:9px;
-    font-weight:850;
+    font-size:10px;
+
+    font-weight:700;
 
   }
 
 
   .mobile-brand img{
 
-    width:32px;
-    height:32px;
+    width:34px;
+    height:34px;
 
     object-fit:contain;
 
@@ -2398,8 +2727,8 @@ button{
 
     justify-self:end;
 
-    width:30px;
-    height:30px;
+    width:32px;
+    height:32px;
 
     display:grid;
 
@@ -2413,27 +2742,44 @@ button{
 
     border-radius:50%;
 
-    font-size:7px;
-    font-weight:850;
+    font-size:8px;
+
+    font-weight:700;
 
   }
 
 
   .content{
 
+    width:100%;
+
     max-width:none;
 
     padding:
-      17px
-      12px
-      28px;
+      18px
+      13px
+      30px;
+
+  }
+
+
+  .heading{
+
+    margin-bottom:16px;
 
   }
 
 
   .heading h1{
 
-    font-size:20px;
+    font-size:22px;
+
+  }
+
+
+  .heading p{
+
+    font-size:10px;
 
   }
 
@@ -2443,11 +2789,11 @@ button{
     display:grid;
 
     grid-template-columns:
-      37px
+      40px
       minmax(0,1fr)
-      37px;
+      40px;
 
-    gap:5px;
+    gap:6px;
 
   }
 
@@ -2456,7 +2802,7 @@ button{
 
     min-width:0;
 
-    font-size:8px;
+    font-size:10px;
 
   }
 
@@ -2473,11 +2819,18 @@ button{
   }
 
 
+  .stats{
+
+    margin-bottom:11px;
+
+  }
+
+
   .stat{
 
     padding:
-      9px
-      4px;
+      10px
+      5px;
 
     text-align:center;
 
@@ -2486,14 +2839,14 @@ button{
 
   .stat strong{
 
-    font-size:14px;
+    font-size:16px;
 
   }
 
 
   .stat span{
 
-    font-size:6px;
+    font-size:7px;
 
   }
 
@@ -2504,7 +2857,7 @@ button{
 
     flex-direction:column;
 
-    gap:9px;
+    gap:10px;
 
   }
 
@@ -2522,7 +2875,7 @@ button{
 
     order:-1;
 
-    padding:11px;
+    padding:12px;
 
     box-shadow:none;
 
@@ -2551,7 +2904,7 @@ button{
   .day{
 
     padding:
-      11px
+      12px
       0;
 
   }
@@ -2559,18 +2912,20 @@ button{
 
   .slot{
 
-    min-height:55px;
+    min-height:58px;
 
     grid-template-columns:
-      43px
+      45px
       minmax(0,1fr)
-      58px;
+      65px;
+
+    gap:7px;
 
     padding:
       8px
-      7px
       8px
-      10px;
+      8px
+      11px;
 
     border-left:0;
     border-right:0;
@@ -2582,18 +2937,27 @@ button{
 
   .slot-title{
 
-    font-size:9px;
+    font-size:10px;
+
+  }
+
+
+  .slot-meta{
+
+    font-size:8px;
 
   }
 
 
   .slot-badge{
 
-    max-width:58px;
+    max-width:65px;
 
     white-space:normal;
 
-    line-height:1.2;
+    line-height:1.3;
+
+    font-size:7px;
 
   }
 
@@ -2601,8 +2965,8 @@ button{
   .evidence{
 
     padding:
-      5px
-      7px
+      6px
+      8px
       0;
 
   }
@@ -2618,18 +2982,23 @@ button{
 
     z-index:1000;
 
-    height:64px;
+    height:67px;
 
     display:grid;
 
     grid-template-columns:
       repeat(3,1fr);
 
-    background:#fff;
+    background:
+      rgba(255,255,255,.99);
 
     border-top:
       1px solid
       var(--line);
+
+    box-shadow:
+      0 -4px 15px
+      rgba(30,30,35,.05);
 
   }
 
@@ -2643,9 +3012,9 @@ button{
     align-items:center;
     justify-content:center;
 
-    gap:3px;
+    gap:4px;
 
-    color:#888a90;
+    color:#85878e;
 
     background:transparent;
 
@@ -2655,16 +3024,17 @@ button{
       3px solid
       transparent;
 
-    font-size:7px;
-    font-weight:850;
+    font-size:8px;
+
+    font-weight:600;
 
   }
 
 
-  .bottom-nav .i{
+  .bottom-nav .icon{
 
-    width:17px;
-    height:17px;
+    width:18px;
+    height:18px;
 
   }
 
@@ -2673,10 +3043,10 @@ button{
 
     color:var(--red);
 
+    background:#fffafb;
+
     border-top-color:
       var(--red);
-
-    background:#fffafb;
 
   }
 
@@ -2685,7 +3055,7 @@ button{
 
     left:9px;
     right:9px;
-    bottom:71px;
+    bottom:74px;
 
     min-width:0;
 
@@ -2741,14 +3111,15 @@ button{
     width:100%;
 
     border-radius:
-      16px
-      16px
+      17px
+      17px
       0
       0;
 
   }
 
 }
+
 
 </style>
 
@@ -2776,11 +3147,9 @@ button{
       TRƯỜNG ĐẠI HỌC KINH TẾ – ĐHQGHN
     </div>
 
-
     <h1>
       Lịch công tác UEB
     </h1>
-
 
     <p class="auth-sub">
       Đăng nhập để khai báo và quản lý lịch công tác.
@@ -2826,8 +3195,8 @@ button{
     >
 
       <span
-        class="i"
-        data-icon="login"
+        class="icon"
+        data-static-icon="login"
       ></span>
 
       Đăng nhập
@@ -2842,8 +3211,8 @@ button{
     >
 
       <span
-        class="i"
-        data-icon="user-plus"
+        class="icon"
+        data-static-icon="user-plus"
       ></span>
 
       Tạo tài khoản
@@ -2880,6 +3249,7 @@ button{
 
 <aside class="sidebar">
 
+
   <div class="brand">
 
     <img
@@ -2900,6 +3270,7 @@ button{
 
   <nav class="nav">
 
+
     <button
       class="active"
       data-page="schedule"
@@ -2907,8 +3278,8 @@ button{
     >
 
       <span
-        class="i"
-        data-icon="calendar"
+        class="icon"
+        data-static-icon="calendar"
       ></span>
 
       Lịch tuần
@@ -2922,8 +3293,8 @@ button{
     >
 
       <span
-        class="i"
-        data-icon="bell"
+        class="icon"
+        data-static-icon="bell"
       ></span>
 
       Nhắc việc
@@ -2937,13 +3308,14 @@ button{
     >
 
       <span
-        class="i"
-        data-icon="user"
+        class="icon"
+        data-static-icon="user"
       ></span>
 
       Hồ sơ
 
     </button>
+
 
   </nav>
 
@@ -2952,6 +3324,7 @@ button{
 
     <div class="user-row">
 
+
       <div
         id="sidebarAvatar"
         class="avatar"
@@ -2959,7 +3332,8 @@ button{
         U
       </div>
 
-      <div>
+
+      <div style="min-width:0">
 
         <strong id="sidebarName">
           Thành viên
@@ -2971,9 +3345,11 @@ button{
 
       </div>
 
+
     </div>
 
   </div>
+
 
 </aside>
 
@@ -3010,6 +3386,7 @@ button{
     U
   </button>
 
+
 </header>
 
 
@@ -3021,6 +3398,7 @@ button{
 =================================================== -->
 
 <section id="schedule-page">
+
 
   <div class="heading">
 
@@ -3046,8 +3424,8 @@ button{
     >
 
       <span
-        class="i"
-        data-icon="chevron-left"
+        class="icon"
+        data-static-icon="chevron-left"
       ></span>
 
     </button>
@@ -3067,8 +3445,8 @@ button{
     >
 
       <span
-        class="i"
-        data-icon="chevron-right"
+        class="icon"
+        data-static-icon="chevron-right"
       ></span>
 
     </button>
@@ -3081,13 +3459,14 @@ button{
     >
 
       <span
-        class="i"
-        data-icon="calendar-check"
+        class="icon"
+        data-static-icon="calendar-check"
       ></span>
 
       TUẦN NÀY
 
     </button>
+
 
   </div>
 
@@ -3184,6 +3563,7 @@ button{
           class="quick-box hidden"
         >
 
+
           <div
             id="quickCurrent"
             class="quick-current"
@@ -3205,8 +3585,8 @@ button{
             >
 
               <span
-                class="i"
-                data-icon="list-checks"
+                class="icon"
+                data-static-icon="list-checks"
               ></span>
 
               Chọn cả tuần
@@ -3221,8 +3601,8 @@ button{
             >
 
               <span
-                class="i"
-                data-icon="x"
+                class="icon"
+                data-static-icon="x"
               ></span>
 
               Bỏ chọn
@@ -3232,7 +3612,9 @@ button{
 
           </div>
 
+
         </div>
+
 
       </section>
 
@@ -3300,6 +3682,7 @@ button{
   class="hidden"
 >
 
+
   <div class="heading">
 
     <h1>
@@ -3328,9 +3711,11 @@ button{
 
         <div class="reminder-card warm">
 
+
           <strong id="missingText">
             Đang kiểm tra lịch...
           </strong>
+
 
           <p>
             Hoàn thiện các buổi chưa khai báo để tổng hợp lịch công tác.
@@ -3344,8 +3729,8 @@ button{
           >
 
             <span
-              class="i"
-              data-icon="arrow-right"
+              class="icon"
+              data-static-icon="arrow-right"
             ></span>
 
             KHAI BÁO NGAY
@@ -3354,6 +3739,7 @@ button{
 
 
         </div>
+
 
       </div>
 
@@ -3367,12 +3753,14 @@ button{
 
         <div class="reminder-card">
 
+
           <strong>
             Chuẩn bị lịch công tác tuần tiếp theo
           </strong>
 
+
           <p>
-            Chuyển sang tuần tiếp theo để khai báo lịch trước.
+            Chuyển sang tuần sau để khai báo lịch trước.
           </p>
 
 
@@ -3383,8 +3771,8 @@ button{
           >
 
             <span
-              class="i"
-              data-icon="calendar"
+              class="icon"
+              data-static-icon="calendar"
             ></span>
 
             MỞ TUẦN SAU
@@ -3394,6 +3782,7 @@ button{
 
         </div>
 
+
       </div>
 
 
@@ -3402,11 +3791,14 @@ button{
 
     <aside class="settings card">
 
+
       <h2>
         Thiết lập nhắc
       </h2>
 
+
       <div id="reminderSettings"></div>
+
 
     </aside>
 
@@ -3425,6 +3817,7 @@ button{
   id="profile-page"
   class="hidden"
 >
+
 
   <div class="heading">
 
@@ -3457,6 +3850,7 @@ button{
 
 
         <div>
+
 
           <div
             id="profileName"
@@ -3592,8 +3986,8 @@ button{
         >
 
           <span
-            class="i"
-            data-icon="save"
+            class="icon"
+            data-static-icon="save"
           ></span>
 
           Lưu hồ sơ
@@ -3609,6 +4003,7 @@ button{
 
     <aside class="settings card">
 
+
       <h2>
         Cài đặt
       </h2>
@@ -3621,15 +4016,15 @@ button{
         id="logoutButton"
         class="btn btn-secondary full"
         style="
-          margin-top:14px;
+          margin-top:16px;
           color:#97182c;
         "
         type="button"
       >
 
         <span
-          class="i"
-          data-icon="logout"
+          class="icon"
+          data-static-icon="logout"
         ></span>
 
         Đăng xuất
@@ -3654,7 +4049,7 @@ button{
 
 
 <!-- =====================================================
-     BOTTOM NAV
+     MOBILE NAVIGATION
 ===================================================== -->
 
 <nav class="bottom-nav">
@@ -3667,8 +4062,8 @@ button{
   >
 
     <span
-      class="i"
-      data-icon="calendar"
+      class="icon"
+      data-static-icon="calendar"
     ></span>
 
     LỊCH
@@ -3682,8 +4077,8 @@ button{
   >
 
     <span
-      class="i"
-      data-icon="bell"
+      class="icon"
+      data-static-icon="bell"
     ></span>
 
     NHẮC VIỆC
@@ -3697,8 +4092,8 @@ button{
   >
 
     <span
-      class="i"
-      data-icon="user"
+      class="icon"
+      data-static-icon="user"
     ></span>
 
     HỒ SƠ
@@ -3710,7 +4105,7 @@ button{
 
 
 <!-- =====================================================
-     QUICK BAR
+     QUICK SELECTION BAR
 ===================================================== -->
 
 <div
@@ -3734,8 +4129,8 @@ button{
   >
 
     <span
-      class="i"
-      data-icon="x"
+      class="icon"
+      data-static-icon="x"
     ></span>
 
     Hủy
@@ -3750,8 +4145,8 @@ button{
   >
 
     <span
-      class="i"
-      data-icon="check"
+      class="icon"
+      data-static-icon="check"
     ></span>
 
     Áp dụng
@@ -3777,6 +4172,7 @@ button{
 
     <div class="modal-head">
 
+
       <h2 id="modalTitle">
         Khai báo công việc
       </h2>
@@ -3786,12 +4182,11 @@ button{
         id="closeModal"
         class="modal-close"
         type="button"
-        title="Đóng"
       >
 
         <span
-          class="i"
-          data-icon="x"
+          class="icon"
+          data-static-icon="x"
         ></span>
 
       </button>
@@ -3844,11 +4239,13 @@ button{
           Nội dung / địa điểm
         </span>
 
+
         <input
           id="modalDetail"
           type="text"
           placeholder="Ví dụ: Họp Tổ công tác tại E4"
         >
+
 
       </label>
 
@@ -3859,11 +4256,13 @@ button{
           Link minh chứng / khai báo công việc
         </span>
 
+
         <input
           id="modalEvidence"
           type="url"
           placeholder="https://drive.google.com/..."
         >
+
 
       </label>
 
@@ -3881,8 +4280,8 @@ button{
       >
 
         <span
-          class="i"
-          data-icon="trash"
+          class="icon"
+          data-static-icon="trash"
         ></span>
 
         Xóa
@@ -3900,8 +4299,8 @@ button{
       >
 
         <span
-          class="i"
-          data-icon="x"
+          class="icon"
+          data-static-icon="x"
         ></span>
 
         Hủy
@@ -3916,8 +4315,8 @@ button{
       >
 
         <span
-          class="i"
-          data-icon="save"
+          class="icon"
+          data-static-icon="save"
         ></span>
 
         Lưu
@@ -3933,6 +4332,8 @@ button{
 
 </div>
 
+
+<!-- TOAST -->
 
 <div
   id="toast"
@@ -3958,7 +4359,7 @@ button{
 
   <div class="loading-box">
 
-    <span class="spin"></span>
+    <span class="spinner"></span>
 
     Đang tải dữ liệu...
 
@@ -3972,6 +4373,13 @@ button{
 /* =========================================================
    SUPABASE
 ========================================================= */
+
+/*
+  GIỮ NGUYÊN URL + PUBLISHABLE KEY ĐANG CHẠY CỦA BẠN.
+
+  Nếu 2 giá trị bên dưới khác file hiện tại,
+  hãy copy lại đúng 2 giá trị từ phiên bản đang đăng nhập được.
+*/
 
 const SUPABASE_URL =
   "https://gfnukoiqquflimroxiny.supabase.co";
@@ -3989,279 +4397,313 @@ const db =
 
 
 /* =========================================================
-   ICONS
-   SVG nội bộ - không dùng Lucide
+   ICON SVG
 ========================================================= */
 
 function icon(name){
 
-  const icons = {
+  const map = {
 
 
-    calendar:
-      `
+    calendar:`
+
       <rect
         x="3"
         y="5"
         width="18"
         height="16"
         rx="2"
-      />
+      ></rect>
 
       <path
         d="M16 3v4M8 3v4M3 10h18"
-      />
-      `,
+      ></path>
+
+    `,
 
 
-    bell:
-      `
+    bell:`
+
       <path
         d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"
-      />
+      ></path>
 
       <path
         d="M10 21h4"
-      />
-      `,
+      ></path>
+
+    `,
 
 
-    user:
-      `
+    user:`
+
       <circle
         cx="12"
         cy="8"
         r="4"
-      />
+      ></circle>
 
       <path
         d="M4 21a8 8 0 0 1 16 0"
-      />
-      `,
+      ></path>
+
+    `,
 
 
-    "user-plus":
-      `
-      <path
-        d="M15 19a6 6 0 0 0-12 0"
-      />
+    "user-plus":`
 
       <circle
         cx="9"
-        cy="7"
+        cy="8"
         r="4"
-      />
+      ></circle>
+
+      <path
+        d="M2 21a7 7 0 0 1 14 0"
+      ></path>
 
       <path
         d="M19 8v6M16 11h6"
-      />
-      `,
+      ></path>
+
+    `,
 
 
-    briefcase:
-      `
+    briefcase:`
+
       <rect
         x="3"
         y="7"
         width="18"
         height="12"
         rx="2"
-      />
+      ></rect>
 
       <path
         d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M3 12h18"
-      />
-      `,
+      ></path>
+
+    `,
 
 
-    building:
-      `
+    building:`
+
       <path
-        d="M4 21V5l8-3 8 3v16M8 9h1M8 13h1M15 9h1M15 13h1M9 21v-4h6v4"
-      />
-      `,
+        d="M4 21V5l8-3 8 3v16"
+      ></path>
+
+      <path
+        d="M8 9h1M8 13h1M15 9h1M15 13h1M9 21v-4h6v4"
+      ></path>
+
+    `,
 
 
-    graduation:
-      `
+    graduation:`
+
       <path
         d="m2 10 10-5 10 5-10 5z"
-      />
+      ></path>
 
       <path
         d="M6 12v5c3 2 9 2 12 0v-5"
-      />
-      `,
+      ></path>
+
+    `,
 
 
-    pin:
-      `
+    pin:`
+
       <path
         d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0z"
-      />
+      ></path>
 
       <circle
         cx="12"
         cy="10"
         r="2"
-      />
-      `,
+      ></circle>
+
+    `,
 
 
-    coffee:
-      `
+    coffee:`
+
       <path
         d="M4 8h12v7a4 4 0 0 1-4 4H8a4 4 0 0 1-4-4z"
-      />
+      ></path>
 
       <path
         d="M16 10h2a3 3 0 0 1 0 6h-2"
-      />
-      `,
+      ></path>
+
+    `,
 
 
-    "chevron-left":
-      `
+    "chevron-left":`
+
       <path
         d="m15 18-6-6 6-6"
-      />
-      `,
+      ></path>
+
+    `,
 
 
-    "chevron-right":
-      `
+    "chevron-right":`
+
       <path
         d="m9 18 6-6-6-6"
-      />
-      `,
+      ></path>
+
+    `,
 
 
-    "calendar-check":
-      `
+    "calendar-check":`
+
       <rect
         x="3"
         y="5"
         width="18"
         height="16"
         rx="2"
-      />
+      ></rect>
 
       <path
-        d="M16 3v4M8 3v4M3 10h18M8 15l2 2 5-5"
-      />
-      `,
+        d="M16 3v4M8 3v4M3 10h18"
+      ></path>
 
-
-    "list-checks":
-      `
       <path
-        d="m3 6 1.5 1.5L7 5M3 12l1.5 1.5L7 11M3 18l1.5 1.5L7 17M10 6h11M10 12h11M10 18h11"
-      />
-      `,
+        d="m8 15 2 2 5-5"
+      ></path>
+
+    `,
 
 
-    x:
-      `
+    "list-checks":`
+
+      <path
+        d="m3 6 1.5 1.5L7 5M3 12l1.5 1.5L7 11M3 18l1.5 1.5L7 17"
+      ></path>
+
+      <path
+        d="M10 6h11M10 12h11M10 18h11"
+      ></path>
+
+    `,
+
+
+    x:`
+
       <path
         d="M18 6 6 18M6 6l12 12"
-      />
-      `,
+      ></path>
+
+    `,
 
 
-    check:
-      `
+    check:`
+
       <path
         d="m5 12 4 4L19 6"
-      />
-      `,
+      ></path>
+
+    `,
 
 
-    "external-link":
-      `
+    link:`
+
+      <path
+        d="M10 13a5 5 0 0 0 7.5.5l2-2a5 5 0 0 0-7-7l-1 1"
+      ></path>
+
+      <path
+        d="M14 11a5 5 0 0 0-7.5-.5l-2 2a5 5 0 0 0 7 7l1-1"
+      ></path>
+
+    `,
+
+
+    "external-link":`
+
       <path
         d="M15 3h6v6M10 14 21 3"
-      />
+      ></path>
 
       <path
         d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"
-      />
-      `,
+      ></path>
+
+    `,
 
 
-    pencil:
-      `
+    pencil:`
+
       <path
         d="M12 20h9"
-      />
+      ></path>
 
       <path
         d="M16.5 3.5a2.1 2.1 0 0 1 3 3L8 18l-4 1 1-4z"
-      />
-      `,
+      ></path>
+
+    `,
 
 
-    link:
-      `
-      <path
-        d="M10 13a5 5 0 0 0 7.5.5l2-2a5 5 0 0 0-7-7l-1.1 1.1"
-      />
+    trash:`
 
-      <path
-        d="M14 11a5 5 0 0 0-7.5-.5l-2 2a5 5 0 0 0 7 7l1.1-1.1"
-      />
-      `,
-
-
-    trash:
-      `
       <path
         d="M3 6h18M8 6V4h8v2M19 6l-1 15H6L5 6M10 11v6M14 11v6"
-      />
-      `,
+      ></path>
+
+    `,
 
 
-    save:
-      `
+    save:`
+
       <path
         d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"
-      />
+      ></path>
 
       <path
         d="M17 21v-8H7v8M7 3v5h8"
-      />
-      `,
+      ></path>
+
+    `,
 
 
-    logout:
-      `
+    logout:`
+
       <path
         d="M10 17l5-5-5-5M15 12H3"
-      />
+      ></path>
 
       <path
         d="M14 3h5a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-5"
-      />
-      `,
+      ></path>
+
+    `,
 
 
-    login:
-      `
+    login:`
+
       <path
         d="M14 8l4 4-4 4M18 12H7"
-      />
+      ></path>
 
       <path
         d="M10 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h5"
-      />
-      `,
+      ></path>
+
+    `,
 
 
-    "arrow-right":
-      `
+    "arrow-right":`
+
       <path
         d="M5 12h14M13 6l6 6-6 6"
-      />
-      `
+      ></path>
+
+    `
 
   };
 
@@ -4274,8 +4716,8 @@ function icon(name){
     >
 
       ${
-        icons[name] ||
-        icons.calendar
+        map[name] ||
+        map.calendar
       }
 
     </svg>
@@ -4286,21 +4728,22 @@ function icon(name){
 
 
 /* =========================================================
-   STATIC ICONS
+   STATIC ICON INIT
 ========================================================= */
 
 function renderStaticIcons(){
 
   document
     .querySelectorAll(
-      "[data-icon]"
+      "[data-static-icon]"
     )
     .forEach(
       element => {
 
         element.innerHTML =
           icon(
-            element.dataset.icon
+            element.dataset
+              .staticIcon
           );
 
       }
@@ -4540,9 +4983,10 @@ function validURL(value){
 
     return (
       url.protocol ===
-        "http:" ||
+      "http:"
+      ||
       url.protocol ===
-        "https:"
+      "https:"
     );
 
 
@@ -4593,15 +5037,13 @@ function showToast(text){
 
 function showAuthMessage(text){
 
-  const box =
-    $("authMessage");
-
-
-  box.style.display =
+  $("authMessage")
+    .style.display =
     "block";
 
 
-  box.textContent =
+  $("authMessage")
+    .textContent =
     text;
 
 }
@@ -4629,12 +5071,8 @@ function initials(name){
 
   const words =
     clean
-      .split(
-        /\s+/
-      )
-      .filter(
-        Boolean
-      );
+      .split(/\s+/)
+      .filter(Boolean);
 
 
   if(
@@ -4644,8 +5082,8 @@ function initials(name){
     return (
       words[
         words.length - 2
-      ][0] +
-
+      ][0]
+      +
       words[
         words.length - 1
       ][0]
@@ -4776,26 +5214,26 @@ function initialMonday(){
     today.getDay();
 
 
-  let diff;
+  let difference;
 
 
   if(
     day === 6
   ){
 
-    diff =
+    difference =
       2;
 
   }else if(
     day === 0
   ){
 
-    diff =
+    difference =
       1;
 
   }else{
 
-    diff =
+    difference =
       1 -
       day;
 
@@ -4804,7 +5242,7 @@ function initialMonday(){
 
   return addDays(
     today,
-    diff
+    difference
   );
 
 }
@@ -4924,7 +5362,7 @@ function updateWeekLabel(){
 
 
 /* =========================================================
-   AUTH
+   AUTH LOGIN
 ========================================================= */
 
 async function signIn(){
@@ -5000,7 +5438,7 @@ async function signIn(){
 
 
     showAuthMessage(
-      "Không thể kết nối hệ thống. Hãy thử lại."
+      "Không thể kết nối hệ thống."
     );
 
 
@@ -5016,7 +5454,7 @@ async function signIn(){
 
 
 /* =========================================================
-   SIGNUP
+   SIGN UP
 ========================================================= */
 
 async function signUp(){
@@ -5094,7 +5532,7 @@ async function signUp(){
 
 
     showAuthMessage(
-      "Tài khoản đã được tạo. Nếu hệ thống yêu cầu xác nhận email, hãy xác nhận rồi đăng nhập."
+      "Tài khoản đã được tạo. Hãy xác nhận email nếu hệ thống yêu cầu rồi đăng nhập."
     );
 
 
@@ -5106,7 +5544,7 @@ async function signUp(){
 
 
     showAuthMessage(
-      "Không thể kết nối hệ thống. Hãy thử lại."
+      "Không thể kết nối hệ thống."
     );
 
 
@@ -5350,7 +5788,6 @@ async function saveProfile(){
         "Không lưu được hồ sơ."
       );
 
-
       return;
 
     }
@@ -5386,7 +5823,7 @@ async function saveProfile(){
 
 
 /* =========================================================
-   SETTINGS DATABASE
+   SETTINGS
 ========================================================= */
 
 async function loadSettings(){
@@ -5399,9 +5836,7 @@ async function loadSettings(){
       .from(
         "user_settings"
       )
-      .select(
-        "*"
-      )
+      .select("*")
       .eq(
         "user_id",
         state.user.id
@@ -5448,10 +5883,6 @@ async function loadSettings(){
 
 }
 
-
-/* =========================================================
-   SAVE SETTINGS
-========================================================= */
 
 async function saveSettings(){
 
@@ -5556,9 +5987,7 @@ async function loadWeek(){
         .from(
           "schedule_entries"
         )
-        .select(
-          "*"
-        )
+        .select("*")
         .eq(
           "user_id",
           state.user.id
@@ -5590,7 +6019,6 @@ async function loadWeek(){
       showToast(
         "Không tải được lịch."
       );
-
 
       return;
 
@@ -5821,23 +6249,17 @@ function summary(){
 
   const result = {
 
-    complete:
-      0,
+    complete:0,
 
-    team:
-      0,
+    team:0,
 
-    faculty:
-      0,
+    faculty:0,
 
-    teach:
-      0,
+    teach:0,
 
-    field:
-      0,
+    field:0,
 
-    leave:
-      0
+    leave:0
 
   };
 
@@ -5947,7 +6369,7 @@ function renderSchedule(){
 
 
 /* =========================================================
-   RENDER DAYS
+   DAYS
 ========================================================= */
 
 function renderDays(){
@@ -5987,25 +6409,23 @@ function renderDays(){
       );
 
 
-    const morningKey =
+    const morning =
       dateISO +
       "|morning";
 
 
-    const afternoonKey =
+    const afternoon =
       dateISO +
       "|afternoon";
 
 
     const wholeDay =
       state.selected.has(
-        morningKey
+        morning
       )
-
       &&
-
       state.selected.has(
-        afternoonKey
+        afternoon
       );
 
 
@@ -6030,8 +6450,7 @@ function renderDays(){
 
           <span class="day-date">
 
-            ·
-            ${formatFull(date)}
+            · ${formatFull(date)}
 
           </span>
 
@@ -6103,7 +6522,7 @@ function renderDays(){
 
 
 /* =========================================================
-   SLOT HTML
+   SLOT
 ========================================================= */
 
 function slotHTML(
@@ -6147,22 +6566,18 @@ function slotHTML(
       <button
         class="
           slot
-
           ${
             type
               ? type.className
               : "type-empty"
           }
-
           ${
             selected
               ? "selected"
               : ""
           }
         "
-
         data-slot="${key}"
-
         type="button"
       >
 
@@ -6180,7 +6595,7 @@ function slotHTML(
           <span class="slot-title">
 
 
-            <span class="i">
+            <span class="icon">
 
               ${
                 icon(
@@ -6215,14 +6630,11 @@ function slotHTML(
               item
 
                 ? escapeHTML(
-
                     item.detail ||
-
                     defaultDetail(
                       item.work_type,
                       session
                     )
-
                   )
 
                 : "Chưa khai báo"
@@ -6293,7 +6705,7 @@ function evidenceHTML(
           data-evidence-link
         >
 
-          <span class="i">
+          <span class="icon">
 
             ${icon("external-link")}
 
@@ -6309,7 +6721,7 @@ function evidenceHTML(
           type="button"
         >
 
-          <span class="i">
+          <span class="icon">
 
             ${icon("pencil")}
 
@@ -6337,7 +6749,7 @@ function evidenceHTML(
         type="button"
       >
 
-        <span class="i">
+        <span class="icon">
 
           ${icon("link")}
 
@@ -6356,7 +6768,7 @@ function evidenceHTML(
 
 
 /* =========================================================
-   CATEGORY CHIPS
+   QUICK CATEGORIES
 ========================================================= */
 
 function renderCategories(){
@@ -6390,7 +6802,7 @@ function renderCategories(){
             type="button"
           >
 
-            <span class="i">
+            <span class="icon">
 
               ${icon(type.icon)}
 
@@ -6461,10 +6873,6 @@ function renderQuickUI(){
 }
 
 
-/* =========================================================
-   START QUICK
-========================================================= */
-
 function startQuick(type){
 
   if(
@@ -6495,10 +6903,6 @@ function startQuick(type){
 }
 
 
-/* =========================================================
-   TOGGLE QUICK SLOT
-========================================================= */
-
 function toggleQuickSlot(key){
 
   if(
@@ -6528,10 +6932,6 @@ function toggleQuickSlot(key){
 }
 
 
-/* =========================================================
-   SELECT DAY
-========================================================= */
-
 function selectDay(dateISO){
 
   const morning =
@@ -6544,19 +6944,17 @@ function selectDay(dateISO){
     "|afternoon";
 
 
-  const both =
+  const selected =
     state.selected.has(
       morning
     )
-
     &&
-
     state.selected.has(
       afternoon
     );
 
 
-  if(both){
+  if(selected){
 
     state.selected
       .delete(
@@ -6590,10 +6988,6 @@ function selectDay(dateISO){
 }
 
 
-/* =========================================================
-   SELECT WHOLE WEEK
-========================================================= */
-
 function selectWholeWeek(){
 
   state.selected
@@ -6601,16 +6995,16 @@ function selectWholeWeek(){
 
 
   for(
-    let i = 0;
-    i < 5;
-    i++
+    let index = 0;
+    index < 5;
+    index++
   ){
 
     const date =
       localDateString(
         addDays(
           state.weekStart,
-          i
+          index
         )
       );
 
@@ -6636,10 +7030,6 @@ function selectWholeWeek(){
 }
 
 
-/* =========================================================
-   CLEAR
-========================================================= */
-
 function clearSelection(){
 
   state.selected
@@ -6650,10 +7040,6 @@ function clearSelection(){
 
 }
 
-
-/* =========================================================
-   CANCEL QUICK
-========================================================= */
 
 function cancelQuick(){
 
@@ -6770,7 +7156,6 @@ async function applyQuick(){
     if(error){
 
       console.error(
-        "applyQuick",
         error
       );
 
@@ -6778,7 +7163,6 @@ async function applyQuick(){
       showToast(
         "Không lưu được lịch."
       );
-
 
       return;
 
@@ -6789,17 +7173,17 @@ async function applyQuick(){
       rows.length;
 
 
+    state.settings
+      .default_work_type =
+      state.quickType;
+
+
     state.quick =
       false;
 
 
     state.selected
       .clear();
-
-
-    state.settings
-      .default_work_type =
-      state.quickType;
 
 
     await saveSettings();
@@ -6826,7 +7210,7 @@ async function applyQuick(){
 
 
 /* =========================================================
-   DEFAULT DETAIL
+   DEFAULT DETAILS
 ========================================================= */
 
 function defaultDetail(
@@ -6835,10 +7219,12 @@ function defaultDetail(
 ){
 
   if(
-    type === "team"
+    type ===
+    "team"
   ){
 
-    return session === "morning"
+    return session ===
+      "morning"
 
       ? "08:00 – 12:00"
 
@@ -6848,7 +7234,8 @@ function defaultDetail(
 
 
   if(
-    type === "faculty"
+    type ===
+    "faculty"
   ){
 
     return "Làm việc tại Khoa/Viện";
@@ -6857,7 +7244,8 @@ function defaultDetail(
 
 
   if(
-    type === "teach"
+    type ===
+    "teach"
   ){
 
     return "Dự giờ / Giảng dạy";
@@ -6866,7 +7254,8 @@ function defaultDetail(
 
 
   if(
-    type === "field"
+    type ===
+    "field"
   ){
 
     return "Công tác ngoài";
@@ -6880,7 +7269,7 @@ function defaultDetail(
 
 
 /* =========================================================
-   OPEN MODAL
+   MODAL
 ========================================================= */
 
 function openModal(key){
@@ -6899,8 +7288,7 @@ function openModal(key){
     date,
     session
   ] =
-    key
-      .split("|");
+    key.split("|");
 
 
   $("modalTitle")
@@ -6931,8 +7319,11 @@ function openModal(key){
     +
 
     (
-      session === "morning"
+      session ===
+      "morning"
+
         ? "Sáng"
+
         : "Chiều"
     );
 
@@ -6980,10 +7371,6 @@ function openModal(key){
 }
 
 
-/* =========================================================
-   CLOSE MODAL
-========================================================= */
-
 function closeModal(){
 
   $("modalBackdrop")
@@ -7000,7 +7387,7 @@ function closeModal(){
 
 
 /* =========================================================
-   SAVE MODAL
+   SAVE WORK
 ========================================================= */
 
 async function saveModal(){
@@ -7110,7 +7497,6 @@ async function saveModal(){
     if(error){
 
       console.error(
-        "saveModal",
         error
       );
 
@@ -7118,7 +7504,6 @@ async function saveModal(){
       showToast(
         "Không lưu được công việc."
       );
-
 
       return;
 
@@ -7156,7 +7541,7 @@ async function saveModal(){
 
 
 /* =========================================================
-   DELETE SLOT
+   DELETE WORK
 ========================================================= */
 
 async function deleteCurrentSlot(){
@@ -7210,7 +7595,6 @@ async function deleteCurrentSlot(){
     if(error){
 
       console.error(
-        "deleteCurrentSlot",
         error
       );
 
@@ -7218,7 +7602,6 @@ async function deleteCurrentSlot(){
       showToast(
         "Không xóa được công việc."
       );
-
 
       return;
 
@@ -7285,17 +7668,20 @@ function settingsHTML(){
 
           <div class="setting-copy">
 
+
             <strong>
 
               ${escapeHTML(row[1])}
 
             </strong>
 
+
             <span>
 
               ${escapeHTML(row[2])}
 
             </span>
+
 
           </div>
 
@@ -7448,7 +7834,7 @@ function renderProfile(){
 
 
 /* =========================================================
-   CHANGE WEEK
+   WEEK NAVIGATION
 ========================================================= */
 
 async function changeWeek(amount){
@@ -7472,10 +7858,6 @@ async function changeWeek(amount){
 
 }
 
-
-/* =========================================================
-   RESET WEEK
-========================================================= */
 
 async function resetWeek(){
 
@@ -7559,7 +7941,7 @@ document
       }
 
 
-      /* QUICK TYPE */
+      /* QUICK CATEGORY */
 
       const quickType =
         target.closest(
@@ -7599,7 +7981,6 @@ document
             .editEvidence
         );
 
-
         return;
 
       }
@@ -7622,7 +8003,7 @@ document
       }
 
 
-      /* SELECT DAY */
+      /* SELECT WHOLE DAY */
 
       const dayButton =
         target.closest(
@@ -7639,7 +8020,6 @@ document
           dayButton.dataset
             .selectDay
         );
-
 
         return;
 
@@ -7685,7 +8065,7 @@ document
       }
 
 
-      /* SETTING */
+      /* SETTINGS */
 
       const setting =
         target.closest(
@@ -7709,8 +8089,12 @@ document
             )
         ){
 
-          state.settings[key] =
-            !state.settings[key];
+          state.settings[
+            key
+          ] =
+            !state.settings[
+              key
+            ];
 
 
           await saveSettings();
@@ -7731,6 +8115,9 @@ document
 
         }
 
+
+        return;
+
       }
 
 
@@ -7739,7 +8126,7 @@ document
 
 
 /* =========================================================
-   STATIC EVENTS
+   STATIC EVENT LISTENERS
 ========================================================= */
 
 $("loginButton")
@@ -7953,7 +8340,6 @@ async function init(){
     if(error){
 
       console.error(
-        "getSession",
         error
       );
 
@@ -8025,7 +8411,7 @@ async function init(){
 
 
     showAuthMessage(
-      "Không thể kết nối Supabase. Hãy kiểm tra lại kết nối."
+      "Không thể kết nối Supabase."
     );
 
   }
@@ -8036,7 +8422,6 @@ async function init(){
 init();
 
 </script>
-
 
 </body>
 
