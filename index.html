@@ -13,7 +13,6 @@
 <title>Lịch công tác UEB</title>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="https://unpkg.com/lucide@latest"></script>
 
 
 <style>
@@ -40,8 +39,8 @@
   --muted:#74777f;
 
   --bg:#f6f6f8;
-  --white:#fff;
   --line:#e5e5e9;
+  --white:#fff;
 
   --shadow:
     0 8px 28px
@@ -51,7 +50,9 @@
 
 
 *{
+
   box-sizing:border-box;
+
 }
 
 
@@ -101,6 +102,10 @@ button{
 }
 
 
+/* =========================================================
+   COMMON
+========================================================= */
+
 .card{
 
   background:#fff;
@@ -131,11 +136,11 @@ button{
     8px
     12px;
 
-  border-radius:9px;
-
   border:
     1px solid
     transparent;
+
+  border-radius:9px;
 
   font-size:10px;
   font-weight:750;
@@ -191,12 +196,47 @@ button{
 
 
 /* =========================================================
+   ICON
+========================================================= */
+
+.i{
+
+  width:16px;
+  height:16px;
+
+  display:inline-block;
+
+  flex:0 0 auto;
+
+}
+
+
+.i svg{
+
+  width:100%;
+  height:100%;
+
+  display:block;
+
+  fill:none;
+
+  stroke:currentColor;
+
+  stroke-width:1.8;
+
+  stroke-linecap:round;
+  stroke-linejoin:round;
+
+}
+
+
+/* =========================================================
    AUTH
 ========================================================= */
 
 #authView{
 
-  min-height:100vh;
+  min-height:100dvh;
 
   display:grid;
 
@@ -263,9 +303,9 @@ button{
 
 .auth-school{
 
-  color:var(--red);
-
   text-align:center;
+
+  color:var(--red);
 
   font-size:8px;
   font-weight:850;
@@ -404,8 +444,10 @@ button{
 
 #appView{
 
+  position:relative;
+
   width:100%;
-  height:100vh;
+  height:100dvh;
 
   overflow:hidden;
 
@@ -432,11 +474,11 @@ button{
 
 .sidebar{
 
+  min-width:0;
+
   display:flex;
 
   flex-direction:column;
-
-  min-width:0;
 
   padding:
     19px
@@ -510,6 +552,12 @@ button{
 
   min-height:42px;
 
+  display:flex;
+
+  align-items:center;
+
+  gap:9px;
+
   padding:
     9px
     11px;
@@ -552,7 +600,8 @@ button{
   margin-top:auto;
 
   padding:
-    13px 4px
+    13px
+    4px
     0;
 
   border-top:
@@ -847,7 +896,7 @@ button{
 
 
 /* =========================================================
-   DAY
+   DAYS
 ========================================================= */
 
 .day{
@@ -963,7 +1012,7 @@ button{
   grid-template-columns:
     48px
     minmax(0,1fr)
-    88px;
+    92px;
 
   align-items:center;
 
@@ -1025,15 +1074,40 @@ button{
 
 .slot-title{
 
-  display:block;
+  display:flex;
+
+  align-items:center;
+
+  gap:5px;
+
+  min-width:0;
+
+  overflow:hidden;
+
+  white-space:nowrap;
+
+  text-overflow:ellipsis;
+
+  font-size:10px;
+  font-weight:800;
+
+}
+
+
+.slot-title .i{
+
+  width:13px;
+  height:13px;
+
+}
+
+
+.slot-title-text{
 
   overflow:hidden;
 
   white-space:nowrap;
   text-overflow:ellipsis;
-
-  font-size:10px;
-  font-weight:800;
 
 }
 
@@ -1151,7 +1225,7 @@ button{
 
   flex-wrap:wrap;
 
-  gap:7px;
+  gap:8px;
 
   padding:
     5px
@@ -1163,9 +1237,29 @@ button{
 }
 
 
+.evidence a,
+.evidence button{
+
+  display:inline-flex;
+
+  align-items:center;
+
+  gap:4px;
+
+}
+
+
+.evidence .i{
+
+  width:12px;
+  height:12px;
+
+}
+
+
 .evidence a{
 
-  max-width:230px;
+  max-width:240px;
 
   overflow:hidden;
 
@@ -1212,7 +1306,7 @@ button{
 
 
 /* =========================================================
-   QUICK
+   QUICK SELECT
 ========================================================= */
 
 .selecting .slot{
@@ -1276,6 +1370,10 @@ button{
 
 }
 
+
+/* =========================================================
+   QUICK PANEL
+========================================================= */
 
 .quick{
 
@@ -1343,6 +1441,12 @@ button{
 
   min-height:30px;
 
+  display:inline-flex;
+
+  align-items:center;
+
+  gap:5px;
+
   padding:
     6px
     8px;
@@ -1361,6 +1465,14 @@ button{
 
   font-size:7px;
   font-weight:750;
+
+}
+
+
+.category .i{
+
+  width:12px;
+  height:12px;
 
 }
 
@@ -1440,6 +1552,14 @@ button{
 }
 
 
+.btn .i{
+
+  width:13px;
+  height:13px;
+
+}
+
+
 /* =========================================================
    SUMMARY
 ========================================================= */
@@ -1480,7 +1600,7 @@ button{
 
 
 /* =========================================================
-   SELECTION BAR
+   QUICK BAR
 ========================================================= */
 
 .selection-bar{
@@ -1545,7 +1665,7 @@ button{
 
 
 /* =========================================================
-   OTHER PAGES
+   REMINDERS / PROFILE
 ========================================================= */
 
 .two-col{
@@ -1980,6 +2100,10 @@ button{
 
   margin-left:auto;
 
+  display:grid;
+
+  place-items:center;
+
   background:#fff;
 
   border:
@@ -1987,6 +2111,14 @@ button{
     #ddd;
 
   border-radius:7px;
+
+}
+
+
+.modal-close .i{
+
+  width:14px;
+  height:14px;
 
 }
 
@@ -2023,7 +2155,7 @@ button{
 
 
 /* =========================================================
-   TOAST + LOADING
+   TOAST / LOADING
 ========================================================= */
 
 .toast{
@@ -2072,7 +2204,7 @@ button{
 
 .loading{
 
-  position:absolute;
+  position:fixed;
 
   inset:0;
 
@@ -2093,6 +2225,12 @@ button{
 
 .loading-box{
 
+  display:flex;
+
+  align-items:center;
+
+  gap:8px;
+
   padding:
     14px
     18px;
@@ -2109,6 +2247,38 @@ button{
 
   font-size:9px;
   font-weight:750;
+
+}
+
+
+.spin{
+
+  width:14px;
+  height:14px;
+
+  border:
+    2px solid
+    #ead7db;
+
+  border-top-color:
+    var(--red);
+
+  border-radius:50%;
+
+  animation:
+    spin .8s linear infinite;
+
+}
+
+
+@keyframes spin{
+
+  to{
+
+    transform:
+      rotate(360deg);
+
+  }
 
 }
 
@@ -2394,7 +2564,7 @@ button{
     grid-template-columns:
       43px
       minmax(0,1fr)
-      55px;
+      58px;
 
     padding:
       8px
@@ -2419,7 +2589,7 @@ button{
 
   .slot-badge{
 
-    max-width:55px;
+    max-width:58px;
 
     white-space:normal;
 
@@ -2466,6 +2636,15 @@ button{
 
   .bottom-nav button{
 
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+    justify-content:center;
+
+    gap:3px;
+
     color:#888a90;
 
     background:transparent;
@@ -2478,6 +2657,14 @@ button{
 
     font-size:7px;
     font-weight:850;
+
+  }
+
+
+  .bottom-nav .i{
+
+    width:17px;
+    height:17px;
 
   }
 
@@ -2562,49 +2749,6 @@ button{
   }
 
 }
-.icon{
-  width:16px;
-  height:16px;
-  flex:0 0 auto;
-  stroke-width:1.8;
-}
-
-.nav button{
-  display:flex;
-  align-items:center;
-  gap:9px;
-}
-
-.btn .icon{
-  width:14px;
-  height:14px;
-}
-
-.category{
-  display:inline-flex;
-  align-items:center;
-  gap:5px;
-}
-
-.evidence a,
-.evidence button{
-  display:inline-flex;
-  align-items:center;
-  gap:4px;
-}
-
-.bottom-nav button{
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  gap:3px;
-}
-
-.bottom-nav .icon{
-  width:17px;
-  height:17px;
-}
 
 </style>
 
@@ -2632,9 +2776,11 @@ button{
       TRƯỜNG ĐẠI HỌC KINH TẾ – ĐHQGHN
     </div>
 
+
     <h1>
       Lịch công tác UEB
     </h1>
+
 
     <p class="auth-sub">
       Đăng nhập để khai báo và quản lý lịch công tác.
@@ -2643,12 +2789,15 @@ button{
 
     <label class="field">
 
-      <span>Email</span>
+      <span>
+        Email
+      </span>
 
       <input
         id="loginEmail"
         type="email"
         placeholder="email@vnu.edu.vn"
+        autocomplete="email"
       >
 
     </label>
@@ -2656,12 +2805,15 @@ button{
 
     <label class="field">
 
-      <span>Mật khẩu</span>
+      <span>
+        Mật khẩu
+      </span>
 
       <input
         id="loginPassword"
         type="password"
         placeholder="Mật khẩu"
+        autocomplete="current-password"
       >
 
     </label>
@@ -2672,7 +2824,14 @@ button{
       class="btn btn-primary full"
       type="button"
     >
+
+      <span
+        class="i"
+        data-icon="login"
+      ></span>
+
       Đăng nhập
+
     </button>
 
 
@@ -2681,7 +2840,14 @@ button{
       class="btn auth-alt full"
       type="button"
     >
+
+      <span
+        class="i"
+        data-icon="user-plus"
+      ></span>
+
       Tạo tài khoản
+
     </button>
 
 
@@ -2708,7 +2874,9 @@ button{
 <div class="shell">
 
 
-<!-- SIDEBAR -->
+<!-- =====================================================
+     SIDEBAR
+===================================================== -->
 
 <aside class="sidebar">
 
@@ -2732,32 +2900,52 @@ button{
 
   <nav class="nav">
 
-  <button
-    class="active"
-    data-page="schedule"
-    type="button"
-  >
-    <i data-lucide="calendar-days" class="icon"></i>
-    Lịch tuần
-  </button>
+    <button
+      class="active"
+      data-page="schedule"
+      type="button"
+    >
 
-  <button
-    data-page="reminders"
-    type="button"
-  >
-    <i data-lucide="bell" class="icon"></i>
-    Nhắc việc
-  </button>
+      <span
+        class="i"
+        data-icon="calendar"
+      ></span>
 
-  <button
-    data-page="profile"
-    type="button"
-  >
-    <i data-lucide="user-round" class="icon"></i>
-    Hồ sơ
-  </button>
+      Lịch tuần
 
-</nav>
+    </button>
+
+
+    <button
+      data-page="reminders"
+      type="button"
+    >
+
+      <span
+        class="i"
+        data-icon="bell"
+      ></span>
+
+      Nhắc việc
+
+    </button>
+
+
+    <button
+      data-page="profile"
+      type="button"
+    >
+
+      <span
+        class="i"
+        data-icon="user"
+      ></span>
+
+      Hồ sơ
+
+    </button>
+
+  </nav>
 
 
   <div class="sidebar-user">
@@ -2790,7 +2978,9 @@ button{
 </aside>
 
 
-<!-- MAIN -->
+<!-- =====================================================
+     MAIN
+===================================================== -->
 
 <div class="main">
 
@@ -2827,7 +3017,7 @@ button{
 
 
 <!-- ===================================================
-     SCHEDULE PAGE
+     SCHEDULE
 =================================================== -->
 
 <section id="schedule-page">
@@ -2847,12 +3037,19 @@ button{
 
   <div class="weekbar">
 
+
     <button
       id="prevWeek"
       class="btn btn-secondary week-arrow"
       type="button"
+      title="Tuần trước"
     >
-      ‹
+
+      <span
+        class="i"
+        data-icon="chevron-left"
+      ></span>
+
     </button>
 
 
@@ -2866,8 +3063,14 @@ button{
       id="nextWeek"
       class="btn btn-secondary week-arrow"
       type="button"
+      title="Tuần sau"
     >
-      ›
+
+      <span
+        class="i"
+        data-icon="chevron-right"
+      ></span>
+
     </button>
 
 
@@ -2876,13 +3079,21 @@ button{
       class="btn btn-secondary today"
       type="button"
     >
+
+      <span
+        class="i"
+        data-icon="calendar-check"
+      ></span>
+
       TUẦN NÀY
+
     </button>
 
   </div>
 
 
   <div class="stats card">
+
 
     <div class="stat">
 
@@ -2935,6 +3146,7 @@ button{
 
     </div>
 
+
   </div>
 
 
@@ -2977,6 +3189,7 @@ button{
             class="quick-current"
           ></div>
 
+
           <div class="quick-help">
             Chọn từng buổi hoặc chọn cả ngày.
           </div>
@@ -2984,21 +3197,38 @@ button{
 
           <div class="quick-tools">
 
+
             <button
               id="selectWholeWeek"
               class="btn btn-secondary"
               type="button"
             >
+
+              <span
+                class="i"
+                data-icon="list-checks"
+              ></span>
+
               Chọn cả tuần
+
             </button>
+
 
             <button
               id="clearSelection"
               class="btn btn-secondary"
               type="button"
             >
+
+              <span
+                class="i"
+                data-icon="x"
+              ></span>
+
               Bỏ chọn
+
             </button>
+
 
           </div>
 
@@ -3008,6 +3238,7 @@ button{
 
 
       <section class="summary-card card">
+
 
         <div class="summary-row">
 
@@ -3047,12 +3278,15 @@ button{
 
         </div>
 
+
       </section>
 
 
     </aside>
 
+
   </div>
+
 
 </section>
 
@@ -3084,6 +3318,7 @@ button{
 
     <section class="reminder-list card">
 
+
       <div class="reminder-group">
 
         <div class="kicker">
@@ -3101,13 +3336,22 @@ button{
             Hoàn thiện các buổi chưa khai báo để tổng hợp lịch công tác.
           </p>
 
+
           <button
             class="btn btn-primary"
             data-go="schedule"
             type="button"
           >
+
+            <span
+              class="i"
+              data-icon="arrow-right"
+            ></span>
+
             KHAI BÁO NGAY
+
           </button>
+
 
         </div>
 
@@ -3128,20 +3372,30 @@ button{
           </strong>
 
           <p>
-            Bạn có thể chuyển tuần bằng nút mũi tên trên trang Lịch tuần.
+            Chuyển sang tuần tiếp theo để khai báo lịch trước.
           </p>
+
 
           <button
             id="goNextWeek"
             class="btn btn-secondary"
             type="button"
           >
+
+            <span
+              class="i"
+              data-icon="calendar"
+            ></span>
+
             MỞ TUẦN SAU
+
           </button>
+
 
         </div>
 
       </div>
+
 
     </section>
 
@@ -3158,6 +3412,7 @@ button{
 
 
   </div>
+
 
 </section>
 
@@ -3192,6 +3447,7 @@ button{
 
       <div class="profile-head">
 
+
         <div
           id="profileAvatar"
           class="avatar"
@@ -3209,6 +3465,7 @@ button{
             Thành viên
           </div>
 
+
           <div
             id="profileUnit"
             class="account-unit"
@@ -3216,10 +3473,12 @@ button{
             UEB
           </div>
 
+
           <div
             id="profileEmail"
             class="profile-email"
           ></div>
+
 
           <span
             id="profileRole"
@@ -3228,12 +3487,15 @@ button{
             MEMBER
           </span>
 
+
         </div>
+
 
       </div>
 
 
       <div class="profile-stats">
+
 
         <div class="profile-stat">
 
@@ -3286,10 +3548,12 @@ button{
 
         </div>
 
+
       </div>
 
 
       <div class="profile-form">
+
 
         <label class="field">
 
@@ -3326,8 +3590,16 @@ button{
           class="btn btn-primary"
           type="button"
         >
+
+          <span
+            class="i"
+            data-icon="save"
+          ></span>
+
           Lưu hồ sơ
+
         </button>
+
 
       </div>
 
@@ -3354,13 +3626,22 @@ button{
         "
         type="button"
       >
+
+        <span
+          class="i"
+          data-icon="logout"
+        ></span>
+
         Đăng xuất
+
       </button>
+
 
     </aside>
 
 
   </div>
+
 
 </section>
 
@@ -3373,37 +3654,60 @@ button{
 
 
 <!-- =====================================================
-     MOBILE NAV
+     BOTTOM NAV
 ===================================================== -->
 
 <nav class="bottom-nav">
+
 
   <button
     class="active"
     data-page="schedule"
     type="button"
   >
-    <i data-lucide="calendar-days" class="icon"></i>
+
+    <span
+      class="i"
+      data-icon="calendar"
+    ></span>
+
     LỊCH
+
   </button>
+
 
   <button
     data-page="reminders"
     type="button"
   >
-    <i data-lucide="bell" class="icon"></i>
+
+    <span
+      class="i"
+      data-icon="bell"
+    ></span>
+
     NHẮC VIỆC
+
   </button>
+
 
   <button
     data-page="profile"
     type="button"
   >
-    <i data-lucide="user-round" class="icon"></i>
+
+    <span
+      class="i"
+      data-icon="user"
+    ></span>
+
     HỒ SƠ
+
   </button>
 
+
 </nav>
+
 
 <!-- =====================================================
      QUICK BAR
@@ -3413,6 +3717,7 @@ button{
   id="selectionBar"
   class="selection-bar hidden"
 >
+
 
   <div
     id="selectionCount"
@@ -3427,7 +3732,14 @@ button{
     class="btn btn-secondary"
     type="button"
   >
+
+    <span
+      class="i"
+      data-icon="x"
+    ></span>
+
     Hủy
+
   </button>
 
 
@@ -3436,8 +3748,16 @@ button{
     class="btn btn-primary"
     type="button"
   >
+
+    <span
+      class="i"
+      data-icon="check"
+    ></span>
+
     Áp dụng
+
   </button>
+
 
 </div>
 
@@ -3451,7 +3771,9 @@ button{
   class="modal-backdrop hidden"
 >
 
+
   <div class="modal">
+
 
     <div class="modal-head">
 
@@ -3459,13 +3781,21 @@ button{
         Khai báo công việc
       </h2>
 
+
       <button
         id="closeModal"
         class="modal-close"
         type="button"
+        title="Đóng"
       >
-        ×
+
+        <span
+          class="i"
+          data-icon="x"
+        ></span>
+
       </button>
+
 
     </div>
 
@@ -3478,6 +3808,7 @@ button{
         <span>
           Loại công việc
         </span>
+
 
         <select id="modalType">
 
@@ -3502,6 +3833,7 @@ button{
           </option>
 
         </select>
+
 
       </label>
 
@@ -3541,12 +3873,20 @@ button{
 
     <div class="modal-foot">
 
+
       <button
         id="deleteSlot"
         class="btn btn-danger"
         type="button"
       >
+
+        <span
+          class="i"
+          data-icon="trash"
+        ></span>
+
         Xóa
+
       </button>
 
 
@@ -3558,7 +3898,14 @@ button{
         class="btn btn-secondary"
         type="button"
       >
+
+        <span
+          class="i"
+          data-icon="x"
+        ></span>
+
         Hủy
+
       </button>
 
 
@@ -3567,12 +3914,22 @@ button{
         class="btn btn-primary"
         type="button"
       >
+
+        <span
+          class="i"
+          data-icon="save"
+        ></span>
+
         Lưu
+
       </button>
+
 
     </div>
 
+
   </div>
+
 
 </div>
 
@@ -3581,9 +3938,18 @@ button{
   id="toast"
   class="toast"
 >
+
   <span id="toastText"></span>
+
 </div>
 
+
+</div>
+
+
+<!-- =====================================================
+     LOADING
+===================================================== -->
 
 <div
   id="loading"
@@ -3591,11 +3957,12 @@ button{
 >
 
   <div class="loading-box">
+
+    <span class="spin"></span>
+
     Đang tải dữ liệu...
+
   </div>
-
-</div>
-
 
 </div>
 
@@ -3603,12 +3970,12 @@ button{
 <script>
 
 /* =========================================================
-   1. SUPABASE
-   DÁN LẠI 2 GIÁ TRỊ ĐANG DÙNG Ở FILE CŨ
+   SUPABASE
 ========================================================= */
 
 const SUPABASE_URL =
   "https://gfnukoiqquflimroxiny.supabase.co";
+
 
 const SUPABASE_KEY =
   "sb_publishable_ws7k7byj8cPCJcMce6mweA_NwZMI4St";
@@ -3622,40 +3989,402 @@ const db =
 
 
 /* =========================================================
-   2. CONFIG
+   ICONS
+   SVG nội bộ - không dùng Lucide
+========================================================= */
+
+function icon(name){
+
+  const icons = {
+
+
+    calendar:
+      `
+      <rect
+        x="3"
+        y="5"
+        width="18"
+        height="16"
+        rx="2"
+      />
+
+      <path
+        d="M16 3v4M8 3v4M3 10h18"
+      />
+      `,
+
+
+    bell:
+      `
+      <path
+        d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"
+      />
+
+      <path
+        d="M10 21h4"
+      />
+      `,
+
+
+    user:
+      `
+      <circle
+        cx="12"
+        cy="8"
+        r="4"
+      />
+
+      <path
+        d="M4 21a8 8 0 0 1 16 0"
+      />
+      `,
+
+
+    "user-plus":
+      `
+      <path
+        d="M15 19a6 6 0 0 0-12 0"
+      />
+
+      <circle
+        cx="9"
+        cy="7"
+        r="4"
+      />
+
+      <path
+        d="M19 8v6M16 11h6"
+      />
+      `,
+
+
+    briefcase:
+      `
+      <rect
+        x="3"
+        y="7"
+        width="18"
+        height="12"
+        rx="2"
+      />
+
+      <path
+        d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M3 12h18"
+      />
+      `,
+
+
+    building:
+      `
+      <path
+        d="M4 21V5l8-3 8 3v16M8 9h1M8 13h1M15 9h1M15 13h1M9 21v-4h6v4"
+      />
+      `,
+
+
+    graduation:
+      `
+      <path
+        d="m2 10 10-5 10 5-10 5z"
+      />
+
+      <path
+        d="M6 12v5c3 2 9 2 12 0v-5"
+      />
+      `,
+
+
+    pin:
+      `
+      <path
+        d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0z"
+      />
+
+      <circle
+        cx="12"
+        cy="10"
+        r="2"
+      />
+      `,
+
+
+    coffee:
+      `
+      <path
+        d="M4 8h12v7a4 4 0 0 1-4 4H8a4 4 0 0 1-4-4z"
+      />
+
+      <path
+        d="M16 10h2a3 3 0 0 1 0 6h-2"
+      />
+      `,
+
+
+    "chevron-left":
+      `
+      <path
+        d="m15 18-6-6 6-6"
+      />
+      `,
+
+
+    "chevron-right":
+      `
+      <path
+        d="m9 18 6-6-6-6"
+      />
+      `,
+
+
+    "calendar-check":
+      `
+      <rect
+        x="3"
+        y="5"
+        width="18"
+        height="16"
+        rx="2"
+      />
+
+      <path
+        d="M16 3v4M8 3v4M3 10h18M8 15l2 2 5-5"
+      />
+      `,
+
+
+    "list-checks":
+      `
+      <path
+        d="m3 6 1.5 1.5L7 5M3 12l1.5 1.5L7 11M3 18l1.5 1.5L7 17M10 6h11M10 12h11M10 18h11"
+      />
+      `,
+
+
+    x:
+      `
+      <path
+        d="M18 6 6 18M6 6l12 12"
+      />
+      `,
+
+
+    check:
+      `
+      <path
+        d="m5 12 4 4L19 6"
+      />
+      `,
+
+
+    "external-link":
+      `
+      <path
+        d="M15 3h6v6M10 14 21 3"
+      />
+
+      <path
+        d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"
+      />
+      `,
+
+
+    pencil:
+      `
+      <path
+        d="M12 20h9"
+      />
+
+      <path
+        d="M16.5 3.5a2.1 2.1 0 0 1 3 3L8 18l-4 1 1-4z"
+      />
+      `,
+
+
+    link:
+      `
+      <path
+        d="M10 13a5 5 0 0 0 7.5.5l2-2a5 5 0 0 0-7-7l-1.1 1.1"
+      />
+
+      <path
+        d="M14 11a5 5 0 0 0-7.5-.5l-2 2a5 5 0 0 0 7 7l1.1-1.1"
+      />
+      `,
+
+
+    trash:
+      `
+      <path
+        d="M3 6h18M8 6V4h8v2M19 6l-1 15H6L5 6M10 11v6M14 11v6"
+      />
+      `,
+
+
+    save:
+      `
+      <path
+        d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"
+      />
+
+      <path
+        d="M17 21v-8H7v8M7 3v5h8"
+      />
+      `,
+
+
+    logout:
+      `
+      <path
+        d="M10 17l5-5-5-5M15 12H3"
+      />
+
+      <path
+        d="M14 3h5a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-5"
+      />
+      `,
+
+
+    login:
+      `
+      <path
+        d="M14 8l4 4-4 4M18 12H7"
+      />
+
+      <path
+        d="M10 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h5"
+      />
+      `,
+
+
+    "arrow-right":
+      `
+      <path
+        d="M5 12h14M13 6l6 6-6 6"
+      />
+      `
+
+  };
+
+
+  return `
+
+    <svg
+      viewBox="0 0 24 24"
+      aria-hidden="true"
+    >
+
+      ${
+        icons[name] ||
+        icons.calendar
+      }
+
+    </svg>
+
+  `;
+
+}
+
+
+/* =========================================================
+   STATIC ICONS
+========================================================= */
+
+function renderStaticIcons(){
+
+  document
+    .querySelectorAll(
+      "[data-icon]"
+    )
+    .forEach(
+      element => {
+
+        element.innerHTML =
+          icon(
+            element.dataset.icon
+          );
+
+      }
+    );
+
+}
+
+
+/* =========================================================
+   TYPES
 ========================================================= */
 
 const TYPES = {
 
+
   team:{
-    label:"Tổ công tác",
-    className:"type-team",
-    icon:"briefcase-business"
+
+    label:
+      "Tổ công tác",
+
+    className:
+      "type-team",
+
+    icon:
+      "briefcase"
+
   },
+
 
   faculty:{
-    label:"Khoa/Viện",
-    className:"type-faculty",
-    icon:"building-2"
+
+    label:
+      "Khoa/Viện",
+
+    className:
+      "type-faculty",
+
+    icon:
+      "building"
+
   },
+
 
   teach:{
-    label:"Dự giờ / Giảng dạy",
-    className:"type-teach",
-    icon:"graduation-cap"
+
+    label:
+      "Dự giờ / Giảng dạy",
+
+    className:
+      "type-teach",
+
+    icon:
+      "graduation"
+
   },
+
 
   field:{
-    label:"Công tác ngoài",
-    className:"type-field",
-    icon:"map-pin"
+
+    label:
+      "Công tác ngoài",
+
+    className:
+      "type-field",
+
+    icon:
+      "pin"
+
   },
 
+
   leave:{
-    label:"Nghỉ",
-    className:"type-leave",
-    icon:"coffee"
+
+    label:
+      "Nghỉ",
+
+    className:
+      "type-leave",
+
+    icon:
+      "coffee"
+
   }
+
 
 };
 
@@ -3680,7 +4409,7 @@ const DAY_NAMES = [
 
 
 /* =========================================================
-   3. STATE
+   STATE
 ========================================================= */
 
 const state = {
@@ -3688,6 +4417,7 @@ const state = {
   user:null,
 
   profile:null,
+
 
   settings:{
 
@@ -3701,41 +4431,51 @@ const state = {
 
   },
 
-  page:"schedule",
 
-  weekStart:null,
+  page:
+    "schedule",
 
-  schedule:{},
 
-  quick:false,
+  weekStart:
+    null,
 
-  quickType:"team",
 
-  selected:new Set(),
+  schedule:
+    {},
 
-  editingKey:null
+
+  quick:
+    false,
+
+
+  quickType:
+    "team",
+
+
+  selected:
+    new Set(),
+
+
+  editingKey:
+    null
 
 };
 
 
-let toastTimer;
+let toastTimer =
+  null;
 
 
 /* =========================================================
-   4. HELPERS
+   HELPERS
 ========================================================= */
 
-function $(id){function refreshIcons(){
+function $(id){
 
-  if(window.lucide){
-
-    lucide.createIcons();
-
-  }
-
-}
-
-  return document.getElementById(id);
+  return document
+    .getElementById(
+      id
+    );
 
 }
 
@@ -3759,22 +4499,27 @@ function escapeHTML(value){
       ? ""
       : value
   )
+
     .replace(
       /&/g,
       "&amp;"
     )
+
     .replace(
       /</g,
       "&lt;"
     )
+
     .replace(
       />/g,
       "&gt;"
     )
+
     .replace(
       /"/g,
       "&quot;"
     )
+
     .replace(
       /'/g,
       "&#039;"
@@ -3788,13 +4533,18 @@ function validURL(value){
   try{
 
     const url =
-      new URL(value);
+      new URL(
+        value
+      );
 
 
     return (
-      url.protocol === "http:" ||
-      url.protocol === "https:"
+      url.protocol ===
+        "http:" ||
+      url.protocol ===
+        "https:"
     );
+
 
   }catch(error){
 
@@ -3879,16 +4629,23 @@ function initials(name){
 
   const words =
     clean
-      .split(/\s+/)
-      .filter(Boolean);
+      .split(
+        /\s+/
+      )
+      .filter(
+        Boolean
+      );
 
 
-  if(words.length >= 2){
+  if(
+    words.length >= 2
+  ){
 
     return (
       words[
         words.length - 2
       ][0] +
+
       words[
         words.length - 1
       ][0]
@@ -3909,16 +4666,16 @@ function initials(name){
 
 
 /* =========================================================
-   5. DATE
+   DATE
 ========================================================= */
 
 function localDateString(date){
 
-  const y =
+  const year =
     date.getFullYear();
 
 
-  const m =
+  const month =
     String(
       date.getMonth() + 1
     )
@@ -3928,7 +4685,7 @@ function localDateString(date){
       );
 
 
-  const d =
+  const day =
     String(
       date.getDate()
     )
@@ -3939,11 +4696,11 @@ function localDateString(date){
 
 
   return (
-    y +
+    year +
     "-" +
-    m +
+    month +
     "-" +
-    d
+    day
   );
 
 }
@@ -4022,21 +4779,19 @@ function initialMonday(){
   let diff;
 
 
-  /*
-    Thứ Hai - Thứ Sáu:
-    mở tuần hiện tại.
+  if(
+    day === 6
+  ){
 
-    Thứ Bảy / Chủ Nhật:
-    mở tuần làm việc tiếp theo.
-  */
+    diff =
+      2;
 
-  if(day === 6){
+  }else if(
+    day === 0
+  ){
 
-    diff = 2;
-
-  }else if(day === 0){
-
-    diff = 1;
+    diff =
+      1;
 
   }else{
 
@@ -4058,14 +4813,21 @@ function initialMonday(){
 function formatShort(date){
 
   return (
+
     String(
       date.getDate()
     )
       .padStart(
         2,
         "0"
-      ) +
-    "/" +
+      )
+
+    +
+
+    "/"
+
+    +
+
     String(
       date.getMonth() + 1
     )
@@ -4073,6 +4835,7 @@ function formatShort(date){
         2,
         "0"
       )
+
   );
 
 }
@@ -4081,23 +4844,37 @@ function formatShort(date){
 function formatFull(date){
 
   return (
+
     String(
       date.getDate()
     )
       .padStart(
         2,
         "0"
-      ) +
-    "/" +
+      )
+
+    +
+
+    "/"
+
+    +
+
     String(
       date.getMonth() + 1
     )
       .padStart(
         2,
         "0"
-      ) +
-    "/" +
+      )
+
+    +
+
+    "/"
+
+    +
+
     date.getFullYear()
+
   );
 
 }
@@ -4117,22 +4894,37 @@ function updateWeekLabel(){
 
   $("weekLabel")
     .textContent =
+
     "Tuần " +
+
     formatShort(
       state.weekStart
-    ) +
-    " – " +
+    )
+
+    +
+
+    " – "
+
+    +
+
     formatShort(
       weekEnd()
-    ) +
-    "/" +
-    weekEnd().getFullYear();
+    )
+
+    +
+
+    "/"
+
+    +
+
+    weekEnd()
+      .getFullYear();
 
 }
 
 
 /* =========================================================
-   6. AUTH
+   AUTH
 ========================================================= */
 
 async function signIn(){
@@ -4165,45 +4957,67 @@ async function signIn(){
   }
 
 
-  showLoading(true);
-
-
-  const {
-    data,
-    error
-  } =
-    await db.auth
-      .signInWithPassword({
-        email,
-        password
-      });
-
-
-  if(error){
-
-    showLoading(false);
-
-
-    showAuthMessage(
-      "Đăng nhập chưa thành công: " +
-      error.message
-    );
-
-
-    return;
-
-  }
-
-
-  await startApp(
-    data.user
+  showLoading(
+    true
   );
 
 
-  showLoading(false);
+  try{
+
+    const {
+      data,
+      error
+    } =
+      await db.auth
+        .signInWithPassword({
+          email,
+          password
+        });
+
+
+    if(error){
+
+      showAuthMessage(
+        "Đăng nhập chưa thành công: " +
+        error.message
+      );
+
+      return;
+
+    }
+
+
+    await startApp(
+      data.user
+    );
+
+
+  }catch(error){
+
+    console.error(
+      error
+    );
+
+
+    showAuthMessage(
+      "Không thể kết nối hệ thống. Hãy thử lại."
+    );
+
+
+  }finally{
+
+    showLoading(
+      false
+    );
+
+  }
 
 }
 
+
+/* =========================================================
+   SIGNUP
+========================================================= */
 
 async function signUp(){
 
@@ -4235,101 +5049,148 @@ async function signUp(){
   }
 
 
-  showLoading(true);
+  showLoading(
+    true
+  );
 
 
-  const {
-    data,
-    error
-  } =
-    await db.auth
-      .signUp({
-        email,
-        password
-      });
+  try{
+
+    const {
+      data,
+      error
+    } =
+      await db.auth
+        .signUp({
+          email,
+          password
+        });
 
 
-  showLoading(false);
+    if(error){
+
+      showAuthMessage(
+        "Không tạo được tài khoản: " +
+        error.message
+      );
+
+      return;
+
+    }
 
 
-  if(error){
+    if(
+      data.session &&
+      data.user
+    ){
+
+      await startApp(
+        data.user
+      );
+
+      return;
+
+    }
+
 
     showAuthMessage(
-      "Không tạo được tài khoản: " +
-      error.message
+      "Tài khoản đã được tạo. Nếu hệ thống yêu cầu xác nhận email, hãy xác nhận rồi đăng nhập."
     );
 
-    return;
+
+  }catch(error){
+
+    console.error(
+      error
+    );
+
+
+    showAuthMessage(
+      "Không thể kết nối hệ thống. Hãy thử lại."
+    );
+
+
+  }finally{
+
+    showLoading(
+      false
+    );
 
   }
-
-
-  if(
-    data.session &&
-    data.user
-  ){
-
-    await startApp(
-      data.user
-    );
-
-    return;
-
-  }
-
-
-  showAuthMessage(
-    "Tài khoản đã được tạo. Nếu Supabase đang bật xác nhận email, hãy kiểm tra email rồi đăng nhập."
-  );
-
-}
-
-
-async function logout(){
-
-  await db.auth.signOut();
-
-
-  state.user =
-    null;
-
-
-  state.profile =
-    null;
-
-
-  state.schedule =
-    {};
-
-
-  $("appView")
-    .classList
-    .add(
-      "hidden"
-    );
-
-
-  $("authView")
-    .classList
-    .remove(
-      "hidden"
-    );
-
-
-  $("loginPassword")
-    .value =
-    "";
-
-
-  showAuthMessage(
-    "Đã đăng xuất."
-  );
 
 }
 
 
 /* =========================================================
-   7. START APP
+   LOGOUT
+========================================================= */
+
+async function logout(){
+
+  showLoading(
+    true
+  );
+
+
+  try{
+
+    await db.auth
+      .signOut();
+
+
+    state.user =
+      null;
+
+
+    state.profile =
+      null;
+
+
+    state.schedule =
+      {};
+
+
+    state.selected
+      .clear();
+
+
+    $("appView")
+      .classList
+      .add(
+        "hidden"
+      );
+
+
+    $("authView")
+      .classList
+      .remove(
+        "hidden"
+      );
+
+
+    $("loginPassword")
+      .value =
+      "";
+
+
+    showAuthMessage(
+      "Đã đăng xuất."
+    );
+
+
+  }finally{
+
+    showLoading(
+      false
+    );
+
+  }
+
+}
+
+
+/* =========================================================
+   START APP
 ========================================================= */
 
 async function startApp(user){
@@ -4338,6 +5199,10 @@ async function startApp(user){
     user;
 
 
+  state.weekStart =
+    initialMonday();
+
+
   $("authView")
     .classList
     .add(
@@ -4350,10 +5215,6 @@ async function startApp(user){
     .remove(
       "hidden"
     );
-
-
-  state.weekStart =
-    initialMonday();
 
 
   await loadProfile();
@@ -4365,6 +5226,7 @@ async function startApp(user){
 
   renderUser();
 
+
   goPage(
     "schedule"
   );
@@ -4373,7 +5235,7 @@ async function startApp(user){
 
 
 /* =========================================================
-   8. PROFILE DATABASE
+   PROFILE DATABASE
 ========================================================= */
 
 async function loadProfile(){
@@ -4393,17 +5255,22 @@ async function loadProfile(){
         "id",
         state.user.id
       )
-      .single();
+      .maybeSingle();
 
 
   if(error){
 
     console.error(
+      "loadProfile",
       error
     );
 
+  }
 
-    state.profile = {
+
+  state.profile =
+    data ||
+    {
 
       id:
         state.user.id,
@@ -4422,17 +5289,12 @@ async function loadProfile(){
 
     };
 
-
-    return;
-
-  }
-
-
-  state.profile =
-    data;
-
 }
 
+
+/* =========================================================
+   SAVE PROFILE
+========================================================= */
 
 async function saveProfile(){
 
@@ -4448,73 +5310,83 @@ async function saveProfile(){
       .trim();
 
 
-  showLoading(true);
+  showLoading(
+    true
+  );
 
 
-  const {
-    error
-  } =
-    await db
-      .from(
-        "profiles"
-      )
-      .update({
+  try{
 
-        full_name:
-          fullName,
+    const {
+      error
+    } =
+      await db
+        .from(
+          "profiles"
+        )
+        .update({
 
-        unit:
-          unit
+          full_name:
+            fullName,
 
-      })
-      .eq(
-        "id",
-        state.user.id
+          unit:
+            unit
+
+        })
+        .eq(
+          "id",
+          state.user.id
+        );
+
+
+    if(error){
+
+      console.error(
+        error
       );
 
 
-  showLoading(false);
+      showToast(
+        "Không lưu được hồ sơ."
+      );
 
 
-  if(error){
+      return;
 
-    console.error(
-      error
-    );
+    }
+
+
+    state.profile.full_name =
+      fullName;
+
+
+    state.profile.unit =
+      unit;
+
+
+    renderUser();
+
+    renderProfile();
 
 
     showToast(
-      "Không lưu được hồ sơ."
+      "Đã lưu hồ sơ."
     );
 
 
-    return;
+  }finally{
+
+    showLoading(
+      false
+    );
 
   }
-
-
-  state.profile.full_name =
-    fullName;
-
-
-  state.profile.unit =
-    unit;
-
-
-  renderUser();
-
-  renderProfile();
-
-
-  showToast(
-    "Đã lưu hồ sơ."
-  );
 
 }
 
 
 /* =========================================================
-   9. SETTINGS DATABASE
+   SETTINGS DATABASE
 ========================================================= */
 
 async function loadSettings(){
@@ -4537,10 +5409,17 @@ async function loadSettings(){
       .maybeSingle();
 
 
-  if(
-    !error &&
-    data
-  ){
+  if(error){
+
+    console.error(
+      "loadSettings",
+      error
+    );
+
+  }
+
+
+  if(data){
 
     state.settings = {
 
@@ -4569,6 +5448,10 @@ async function loadSettings(){
 
 }
 
+
+/* =========================================================
+   SAVE SETTINGS
+========================================================= */
 
 async function saveSettings(){
 
@@ -4616,6 +5499,7 @@ async function saveSettings(){
   if(error){
 
     console.error(
+      "saveSettings",
       error
     );
 
@@ -4630,12 +5514,19 @@ async function saveSettings(){
 
 
 /* =========================================================
-   10. WEEK DATABASE
+   LOAD WEEK
 ========================================================= */
 
 async function loadWeek(){
 
-  showLoading(true);
+  if(
+    !state.user ||
+    !state.weekStart
+  ){
+
+    return;
+
+  }
 
 
   const start =
@@ -4650,94 +5541,110 @@ async function loadWeek(){
     );
 
 
-  const {
-    data,
-    error
-  } =
-    await db
-      .from(
-        "schedule_entries"
-      )
-      .select(
-        "*"
-      )
-      .eq(
-        "user_id",
-        state.user.id
-      )
-      .gte(
-        "work_date",
-        start
-      )
-      .lte(
-        "work_date",
-        end
-      )
-      .order(
-        "work_date",
-        {
-          ascending:true
+  showLoading(
+    true
+  );
+
+
+  try{
+
+    const {
+      data,
+      error
+    } =
+      await db
+        .from(
+          "schedule_entries"
+        )
+        .select(
+          "*"
+        )
+        .eq(
+          "user_id",
+          state.user.id
+        )
+        .gte(
+          "work_date",
+          start
+        )
+        .lte(
+          "work_date",
+          end
+        )
+        .order(
+          "work_date",
+          {
+            ascending:true
+          }
+        );
+
+
+    if(error){
+
+      console.error(
+        "loadWeek",
+        error
+      );
+
+
+      showToast(
+        "Không tải được lịch."
+      );
+
+
+      return;
+
+    }
+
+
+    state.schedule =
+      {};
+
+
+    (
+      data ||
+      []
+    )
+      .forEach(
+        item => {
+
+          state.schedule[
+            item.work_date +
+            "|" +
+            item.session
+          ] =
+            item;
+
         }
       );
 
 
-  showLoading(false);
+    updateWeekLabel();
+
+    renderSchedule();
 
 
-  if(error){
+  }finally{
 
-    console.error(
-      error
+    showLoading(
+      false
     );
-
-
-    showToast(
-      "Không tải được lịch."
-    );
-
-
-    return;
 
   }
-
-
-  state.schedule =
-    {};
-
-
-  (data || [])
-    .forEach(
-      item => {
-
-        const key =
-          item.work_date +
-          "|" +
-          item.session;
-
-
-        state.schedule[key] =
-          item;
-
-      }
-    );
-
-
-  updateWeekLabel();
-
-  renderSchedule();
 
 }
 
 
 /* =========================================================
-   11. USER UI
+   USER UI
 ========================================================= */
 
 function renderUser(){
 
   const name =
     state.profile?.full_name ||
-    state.user.email;
+    state.user?.email ||
+    "Thành viên";
 
 
   const unit =
@@ -4746,7 +5653,9 @@ function renderUser(){
 
 
   const avatar =
-    initials(name);
+    initials(
+      name
+    );
 
 
   $("sidebarName")
@@ -4777,10 +5686,26 @@ function renderUser(){
 
 
 /* =========================================================
-   12. NAVIGATION
+   NAVIGATION
 ========================================================= */
 
 function goPage(page){
+
+  if(
+    ![
+      "schedule",
+      "reminders",
+      "profile"
+    ]
+      .includes(
+        page
+      )
+  ){
+
+    return;
+
+  }
+
 
   state.page =
     page;
@@ -4790,7 +5715,8 @@ function goPage(page){
     false;
 
 
-  state.selected.clear();
+  state.selected
+    .clear();
 
 
   $("selectionBar")
@@ -4840,56 +5766,78 @@ function goPage(page){
     );
 
 
-  if(page === "schedule"){
+  if(
+    page ===
+    "schedule"
+  ){
 
     renderSchedule();
 
   }
 
 
-  if(page === "reminders"){
+  if(
+    page ===
+    "reminders"
+  ){
 
     renderReminders();
 
   }
 
 
-  if(page === "profile"){
+  if(
+    page ===
+    "profile"
+  ){
 
     renderProfile();
 
   }
 
 
-  document
-    .querySelector(
-      ".main"
-    )
-    .scrollTop =
-    0;
+  const main =
+    document
+      .querySelector(
+        ".main"
+      );
+
+
+  if(main){
+
+    main.scrollTop =
+      0;
+
+  }
 
 }
 
 
 /* =========================================================
-   13. SUMMARY
+   SUMMARY
 ========================================================= */
 
 function summary(){
 
   const result = {
 
-    complete:0,
+    complete:
+      0,
 
-    team:0,
+    team:
+      0,
 
-    faculty:0,
+    faculty:
+      0,
 
-    teach:0,
+    teach:
+      0,
 
-    field:0,
+    field:
+      0,
 
-    leave:0
+    leave:
+      0
 
   };
 
@@ -4930,7 +5878,7 @@ function summary(){
 
 
 /* =========================================================
-   14. RENDER SCHEDULE
+   RENDER SCHEDULE
 ========================================================= */
 
 function renderSchedule(){
@@ -4941,7 +5889,7 @@ function renderSchedule(){
 
     return;
 
-  refreshIcons();}
+  }
 
 
   updateWeekLabel();
@@ -4999,7 +5947,7 @@ function renderSchedule(){
 
 
 /* =========================================================
-   15. DAY HTML
+   RENDER DAYS
 ========================================================= */
 
 function renderDays(){
@@ -5049,10 +5997,13 @@ function renderDays(){
       "|afternoon";
 
 
-    const fullDay =
+    const wholeDay =
       state.selected.has(
         morningKey
-      ) &&
+      )
+
+      &&
+
       state.selected.has(
         afternoonKey
       );
@@ -5062,7 +6013,9 @@ function renderDays(){
 
       <div class="day">
 
+
         <div class="day-head">
+
 
           <span class="day-title">
 
@@ -5074,6 +6027,7 @@ function renderDays(){
 
           </span>
 
+
           <span class="day-date">
 
             ·
@@ -5084,13 +6038,14 @@ function renderDays(){
 
           ${
             state.quick
+
               ? `
 
                 <button
                   class="
                     day-select
                     ${
-                      fullDay
+                      wholeDay
                         ? "active"
                         : ""
                     }
@@ -5100,7 +6055,7 @@ function renderDays(){
                 >
 
                   ${
-                    fullDay
+                    wholeDay
                       ? "ĐÃ CHỌN"
                       : "CHỌN CẢ NGÀY"
                   }
@@ -5108,24 +6063,30 @@ function renderDays(){
                 </button>
 
               `
+
               : ""
           }
+
 
         </div>
 
 
-        ${slotHTML(
-          dateISO,
-          "morning",
-          "SÁNG"
-        )}
+        ${
+          slotHTML(
+            dateISO,
+            "morning",
+            "SÁNG"
+          )
+        }
 
 
-        ${slotHTML(
-          dateISO,
-          "afternoon",
-          "CHIỀU"
-        )}
+        ${
+          slotHTML(
+            dateISO,
+            "afternoon",
+            "CHIỀU"
+          )
+        }
 
 
       </div>
@@ -5142,7 +6103,7 @@ function renderDays(){
 
 
 /* =========================================================
-   16. SLOT HTML
+   SLOT HTML
 ========================================================= */
 
 function slotHTML(
@@ -5158,7 +6119,9 @@ function slotHTML(
 
 
   const item =
-    state.schedule[key];
+    state.schedule[
+      key
+    ];
 
 
   const type =
@@ -5170,9 +6133,10 @@ function slotHTML(
 
 
   const selected =
-    state.selected.has(
-      key
-    );
+    state.selected
+      .has(
+        key
+      );
 
 
   return `
@@ -5212,15 +6176,35 @@ function slotHTML(
 
         <span class="slot-body">
 
+
           <span class="slot-title">
 
-            ${
-              type
-                ? escapeHTML(
-                    type.label
-                  )
-                : "+ Đăng ký"
-            }
+
+            <span class="i">
+
+              ${
+                icon(
+                  type
+                    ? type.icon
+                    : "calendar"
+                )
+              }
+
+            </span>
+
+
+            <span class="slot-title-text">
+
+              ${
+                type
+                  ? escapeHTML(
+                      type.label
+                    )
+                  : "Đăng ký"
+              }
+
+            </span>
+
 
           </span>
 
@@ -5229,17 +6213,23 @@ function slotHTML(
 
             ${
               item
+
                 ? escapeHTML(
+
                     item.detail ||
+
                     defaultDetail(
                       item.work_type,
                       session
                     )
+
                   )
+
                 : "Chưa khai báo"
             }
 
           </span>
+
 
         </span>
 
@@ -5251,7 +6241,7 @@ function slotHTML(
               ? escapeHTML(
                   type.label
                 )
-              : "→"
+              : "Chưa có lịch"
           }
 
         </span>
@@ -5262,11 +6252,13 @@ function slotHTML(
 
       ${
         item
+
           ? evidenceHTML(
               key,
               item.evidence_url ||
               ""
             )
+
           : ""
       }
 
@@ -5279,7 +6271,7 @@ function slotHTML(
 
 
 /* =========================================================
-   17. EVIDENCE
+   EVIDENCE
 ========================================================= */
 
 function evidenceHTML(
@@ -5293,16 +6285,21 @@ function evidenceHTML(
 
       <div class="evidence">
 
+
         <a
-          href="${escapeHTML(
-            evidence
-          )}"
+          href="${escapeHTML(evidence)}"
           target="_blank"
           rel="noopener noreferrer"
           data-evidence-link
         >
 
-          ↗ Xem minh chứng / công việc
+          <span class="i">
+
+            ${icon("external-link")}
+
+          </span>
+
+          Xem minh chứng / công việc
 
         </a>
 
@@ -5311,8 +6308,17 @@ function evidenceHTML(
           data-edit-evidence="${key}"
           type="button"
         >
+
+          <span class="i">
+
+            ${icon("pencil")}
+
+          </span>
+
           Sửa link
+
         </button>
+
 
       </div>
 
@@ -5325,12 +6331,22 @@ function evidenceHTML(
 
     <div class="evidence">
 
+
       <button
         data-edit-evidence="${key}"
         type="button"
       >
-        ＋ Gắn link minh chứng / công việc
+
+        <span class="i">
+
+          ${icon("link")}
+
+        </span>
+
+        Gắn link minh chứng / công việc
+
       </button>
+
 
     </div>
 
@@ -5340,17 +6356,25 @@ function evidenceHTML(
 
 
 /* =========================================================
-   18. CATEGORIES
+   CATEGORY CHIPS
 ========================================================= */
 
 function renderCategories(){
 
   $("categoryChips")
     .innerHTML =
+
     Object
-      .entries(TYPES)
+      .entries(
+        TYPES
+      )
       .map(
-        ([key,type]) => `
+        (
+          [
+            key,
+            type
+          ]
+        ) => `
 
           <button
             class="
@@ -5366,10 +6390,11 @@ function renderCategories(){
             type="button"
           >
 
-            <i
-              data-lucide="${type.icon}"
-              class="icon"
-            ></i>
+            <span class="i">
+
+              ${icon(type.icon)}
+
+            </span>
 
             ${escapeHTML(type.label)}
 
@@ -5379,13 +6404,11 @@ function renderCategories(){
       )
       .join("");
 
-
-  refreshIcons();
-
 }
 
+
 /* =========================================================
-   19. QUICK
+   QUICK UI
 ========================================================= */
 
 function renderQuickUI(){
@@ -5417,22 +6440,43 @@ function renderQuickUI(){
 
   $("quickCurrent")
     .textContent =
+
     "Đang chọn: " +
+
     TYPES[
       state.quickType
-    ].label;
+    ]
+      .label;
 
 
   $("selectionCount")
     .textContent =
+
     "Đã chọn " +
+
     state.selected.size +
+
     " buổi";
 
 }
 
 
+/* =========================================================
+   START QUICK
+========================================================= */
+
 function startQuick(type){
+
+  if(
+    !TYPES[
+      type
+    ]
+  ){
+
+    return;
+
+  }
+
 
   state.quick =
     true;
@@ -5442,7 +6486,8 @@ function startQuick(type){
     type;
 
 
-  state.selected.clear();
+  state.selected
+    .clear();
 
 
   renderSchedule();
@@ -5450,23 +6495,30 @@ function startQuick(type){
 }
 
 
+/* =========================================================
+   TOGGLE QUICK SLOT
+========================================================= */
+
 function toggleQuickSlot(key){
 
   if(
-    state.selected.has(
-      key
-    )
+    state.selected
+      .has(
+        key
+      )
   ){
 
-    state.selected.delete(
-      key
-    );
+    state.selected
+      .delete(
+        key
+      );
 
   }else{
 
-    state.selected.add(
-      key
-    );
+    state.selected
+      .add(
+        key
+      );
 
   }
 
@@ -5475,6 +6527,10 @@ function toggleQuickSlot(key){
 
 }
 
+
+/* =========================================================
+   SELECT DAY
+========================================================= */
 
 function selectDay(dateISO){
 
@@ -5488,36 +6544,43 @@ function selectDay(dateISO){
     "|afternoon";
 
 
-  const selected =
+  const both =
     state.selected.has(
       morning
-    ) &&
+    )
+
+    &&
+
     state.selected.has(
       afternoon
     );
 
 
-  if(selected){
+  if(both){
 
-    state.selected.delete(
-      morning
-    );
+    state.selected
+      .delete(
+        morning
+      );
 
 
-    state.selected.delete(
-      afternoon
-    );
+    state.selected
+      .delete(
+        afternoon
+      );
 
   }else{
 
-    state.selected.add(
-      morning
-    );
+    state.selected
+      .add(
+        morning
+      );
 
 
-    state.selected.add(
-      afternoon
-    );
+    state.selected
+      .add(
+        afternoon
+      );
 
   }
 
@@ -5527,9 +6590,14 @@ function selectDay(dateISO){
 }
 
 
+/* =========================================================
+   SELECT WHOLE WEEK
+========================================================= */
+
 function selectWholeWeek(){
 
-  state.selected.clear();
+  state.selected
+    .clear();
 
 
   for(
@@ -5547,16 +6615,18 @@ function selectWholeWeek(){
       );
 
 
-    state.selected.add(
-      date +
-      "|morning"
-    );
+    state.selected
+      .add(
+        date +
+        "|morning"
+      );
 
 
-    state.selected.add(
-      date +
-      "|afternoon"
-    );
+    state.selected
+      .add(
+        date +
+        "|afternoon"
+      );
 
   }
 
@@ -5566,15 +6636,24 @@ function selectWholeWeek(){
 }
 
 
+/* =========================================================
+   CLEAR
+========================================================= */
+
 function clearSelection(){
 
-  state.selected.clear();
+  state.selected
+    .clear();
 
 
   renderSchedule();
 
 }
 
+
+/* =========================================================
+   CANCEL QUICK
+========================================================= */
 
 function cancelQuick(){
 
@@ -5582,13 +6661,18 @@ function cancelQuick(){
     false;
 
 
-  state.selected.clear();
+  state.selected
+    .clear();
 
 
   renderSchedule();
 
 }
 
+
+/* =========================================================
+   APPLY QUICK
+========================================================= */
 
 async function applyQuick(){
 
@@ -5599,7 +6683,6 @@ async function applyQuick(){
     showToast(
       "Hãy chọn ít nhất một buổi."
     );
-
 
     return;
 
@@ -5622,7 +6705,9 @@ async function applyQuick(){
 
 
         const old =
-          state.schedule[key];
+          state.schedule[
+            key
+          ];
 
 
         rows.push({
@@ -5659,70 +6744,89 @@ async function applyQuick(){
     );
 
 
-  showLoading(true);
+  showLoading(
+    true
+  );
 
 
-  const {
-    error
-  } =
-    await db
-      .from(
-        "schedule_entries"
-      )
-      .upsert(
-        rows,
-        {
-          onConflict:
-            "user_id,work_date,session"
-        }
+  try{
+
+    const {
+      error
+    } =
+      await db
+        .from(
+          "schedule_entries"
+        )
+        .upsert(
+          rows,
+          {
+            onConflict:
+              "user_id,work_date,session"
+          }
+        );
+
+
+    if(error){
+
+      console.error(
+        "applyQuick",
+        error
       );
 
 
-  showLoading(false);
+      showToast(
+        "Không lưu được lịch."
+      );
 
 
-  if(error){
+      return;
 
-    console.error(
-      error
-    );
+    }
+
+
+    const count =
+      rows.length;
+
+
+    state.quick =
+      false;
+
+
+    state.selected
+      .clear();
+
+
+    state.settings
+      .default_work_type =
+      state.quickType;
+
+
+    await saveSettings();
+
+    await loadWeek();
 
 
     showToast(
-      "Không lưu được lịch."
+      "Đã áp dụng cho " +
+      count +
+      " buổi."
     );
 
 
-    return;
+  }finally{
+
+    showLoading(
+      false
+    );
 
   }
-
-
-  const count =
-    rows.length;
-
-
-  state.quick =
-    false;
-
-
-  state.selected.clear();
-
-
-  await loadWeek();
-
-
-  showToast(
-    "Đã áp dụng cho " +
-    count +
-    " buổi."
-  );
 
 }
 
 
 /* =========================================================
-   20. DEFAULT DETAIL
+   DEFAULT DETAIL
 ========================================================= */
 
 function defaultDetail(
@@ -5735,7 +6839,9 @@ function defaultDetail(
   ){
 
     return session === "morning"
+
       ? "08:00 – 12:00"
+
       : "13:00 – 17:00";
 
   }
@@ -5774,7 +6880,7 @@ function defaultDetail(
 
 
 /* =========================================================
-   21. MODAL
+   OPEN MODAL
 ========================================================= */
 
 function openModal(key){
@@ -5784,30 +6890,46 @@ function openModal(key){
 
 
   const item =
-    state.schedule[key];
+    state.schedule[
+      key
+    ];
 
 
   const [
     date,
     session
   ] =
-    key.split("|");
+    key
+      .split("|");
 
 
   $("modalTitle")
     .textContent =
+
     (
       item
-        ? "Cập nhật công việc"
-        : "Khai báo công việc"
-    ) +
-    " · " +
+        ? "Cập nhật"
+        : "Khai báo"
+    )
+
+    +
+
+    " công việc · "
+
+    +
+
     formatFull(
       dateFromISO(
         date
       )
-    ) +
-    " · " +
+    )
+
+    +
+
+    " · "
+
+    +
+
     (
       session === "morning"
         ? "Sáng"
@@ -5817,8 +6939,11 @@ function openModal(key){
 
   $("modalType")
     .value =
+
     item
+
       ? item.work_type
+
       : (
           state.settings
             .default_work_type ||
@@ -5855,6 +6980,10 @@ function openModal(key){
 }
 
 
+/* =========================================================
+   CLOSE MODAL
+========================================================= */
+
 function closeModal(){
 
   $("modalBackdrop")
@@ -5869,6 +6998,10 @@ function closeModal(){
 
 }
 
+
+/* =========================================================
+   SAVE MODAL
+========================================================= */
 
 async function saveModal(){
 
@@ -5917,102 +7050,116 @@ async function saveModal(){
       "Link phải bắt đầu bằng http:// hoặc https://"
     );
 
-
     return;
 
   }
 
 
-  showLoading(true);
+  showLoading(
+    true
+  );
 
 
-  const {
-    error
-  } =
-    await db
-      .from(
-        "schedule_entries"
-      )
-      .upsert(
-        {
+  try{
 
-          user_id:
-            state.user.id,
+    const {
+      error
+    } =
+      await db
+        .from(
+          "schedule_entries"
+        )
+        .upsert(
+          {
 
-          work_date:
-            date,
+            user_id:
+              state.user.id,
 
-          session:
-            session,
+            work_date:
+              date,
 
-          work_type:
-            type,
+            session:
+              session,
 
-          detail:
-            detail ||
-            defaultDetail(
+            work_type:
               type,
-              session
-            ),
 
-          evidence_url:
-            evidence ||
-            null,
+            detail:
+              detail ||
+              defaultDetail(
+                type,
+                session
+              ),
 
-          updated_at:
-            new Date()
-              .toISOString()
+            evidence_url:
+              evidence ||
+              null,
 
-        },
-        {
-          onConflict:
-            "user_id,work_date,session"
-        }
+            updated_at:
+              new Date()
+                .toISOString()
+
+          },
+          {
+            onConflict:
+              "user_id,work_date,session"
+          }
+        );
+
+
+    if(error){
+
+      console.error(
+        "saveModal",
+        error
       );
 
 
-  showLoading(false);
+      showToast(
+        "Không lưu được công việc."
+      );
 
 
-  if(error){
+      return;
 
-    console.error(
-      error
-    );
+    }
+
+
+    state.settings
+      .default_work_type =
+      type;
+
+
+    await saveSettings();
+
+
+    closeModal();
+
+
+    await loadWeek();
 
 
     showToast(
-      "Không lưu được công việc."
+      "Đã lưu công việc."
     );
 
 
-    return;
+  }finally{
+
+    showLoading(
+      false
+    );
 
   }
-
-
-  state.settings
-    .default_work_type =
-    type;
-
-
-  await saveSettings();
-
-
-  closeModal();
-
-
-  await loadWeek();
-
-
-  showToast(
-    "Đã lưu công việc."
-  );
 
 }
 
 
-async function deleteSlot(){
+/* =========================================================
+   DELETE SLOT
+========================================================= */
+
+async function deleteCurrentSlot(){
 
   if(
     !state.editingKey
@@ -6031,66 +7178,77 @@ async function deleteSlot(){
       .split("|");
 
 
-  showLoading(true);
+  showLoading(
+    true
+  );
 
 
-  const {
-    error
-  } =
-    await db
-      .from(
-        "schedule_entries"
-      )
-      .delete()
-      .eq(
-        "user_id",
-        state.user.id
-      )
-      .eq(
-        "work_date",
-        date
-      )
-      .eq(
-        "session",
-        session
+  try{
+
+    const {
+      error
+    } =
+      await db
+        .from(
+          "schedule_entries"
+        )
+        .delete()
+        .eq(
+          "user_id",
+          state.user.id
+        )
+        .eq(
+          "work_date",
+          date
+        )
+        .eq(
+          "session",
+          session
+        );
+
+
+    if(error){
+
+      console.error(
+        "deleteCurrentSlot",
+        error
       );
 
 
-  showLoading(false);
+      showToast(
+        "Không xóa được công việc."
+      );
 
 
-  if(error){
+      return;
 
-    console.error(
-      error
-    );
+    }
+
+
+    closeModal();
+
+
+    await loadWeek();
 
 
     showToast(
-      "Không xóa được công việc."
+      "Đã xóa công việc."
     );
 
 
-    return;
+  }finally{
+
+    showLoading(
+      false
+    );
 
   }
-
-
-  closeModal();
-
-
-  await loadWeek();
-
-
-  showToast(
-    "Đã xóa công việc."
-  );
 
 }
 
 
 /* =========================================================
-   22. REMINDERS
+   SETTINGS HTML
 ========================================================= */
 
 function settingsHTML(){
@@ -6124,18 +7282,19 @@ function settingsHTML(){
 
         <div class="setting">
 
+
           <div class="setting-copy">
 
             <strong>
-              ${escapeHTML(
-                row[1]
-              )}
+
+              ${escapeHTML(row[1])}
+
             </strong>
 
             <span>
-              ${escapeHTML(
-                row[2]
-              )}
+
+              ${escapeHTML(row[2])}
+
             </span>
 
           </div>
@@ -6156,6 +7315,7 @@ function settingsHTML(){
             type="button"
           ></button>
 
+
         </div>
 
       `
@@ -6164,6 +7324,10 @@ function settingsHTML(){
 
 }
 
+
+/* =========================================================
+   REMINDERS
+========================================================= */
 
 function renderReminders(){
 
@@ -6181,10 +7345,13 @@ function renderReminders(){
 
   $("missingText")
     .textContent =
+
     missing
+
       ? "Còn " +
         missing +
         " buổi chưa khai báo"
+
       : "Đã hoàn thành lịch tuần";
 
 
@@ -6192,11 +7359,11 @@ function renderReminders(){
     .innerHTML =
     settingsHTML();
 
-refreshIcons();}
+}
 
 
 /* =========================================================
-   23. PROFILE
+   PROFILE
 ========================================================= */
 
 function renderProfile(){
@@ -6207,7 +7374,8 @@ function renderProfile(){
 
   const name =
     state.profile?.full_name ||
-    state.user.email;
+    state.user?.email ||
+    "Thành viên";
 
 
   const unit =
@@ -6227,7 +7395,8 @@ function renderProfile(){
 
   $("profileEmail")
     .textContent =
-    state.user.email;
+    state.user?.email ||
+    "";
 
 
   $("profileRole")
@@ -6275,11 +7444,11 @@ function renderProfile(){
     .innerHTML =
     settingsHTML();
 
-refreshIcons();}
+}
 
 
 /* =========================================================
-   24. WEEK NAVIGATION
+   CHANGE WEEK
 ========================================================= */
 
 async function changeWeek(amount){
@@ -6295,13 +7464,18 @@ async function changeWeek(amount){
     false;
 
 
-  state.selected.clear();
+  state.selected
+    .clear();
 
 
   await loadWeek();
 
 }
 
+
+/* =========================================================
+   RESET WEEK
+========================================================= */
 
 async function resetWeek(){
 
@@ -6313,7 +7487,8 @@ async function resetWeek(){
     false;
 
 
-  state.selected.clear();
+  state.selected
+    .clear();
 
 
   await loadWeek();
@@ -6322,13 +7497,14 @@ async function resetWeek(){
 
 
 /* =========================================================
-   25. EVENT DELEGATION
+   EVENT DELEGATION
 ========================================================= */
 
 document
   .addEventListener(
     "click",
     async event => {
+
 
       const target =
         event.target;
@@ -6359,7 +7535,6 @@ document
           pageButton.dataset.page
         );
 
-
         return;
 
       }
@@ -6379,13 +7554,12 @@ document
           directPage.dataset.go
         );
 
-
         return;
 
       }
 
 
-      /* QUICK CATEGORY */
+      /* QUICK TYPE */
 
       const quickType =
         target.closest(
@@ -6399,7 +7573,6 @@ document
           quickType.dataset
             .quickType
         );
-
 
         return;
 
@@ -6444,7 +7617,6 @@ document
 
         event.stopPropagation();
 
-
         return;
 
       }
@@ -6459,6 +7631,9 @@ document
 
 
       if(dayButton){
+
+        event.preventDefault();
+
 
         selectDay(
           dayButton.dataset
@@ -6480,6 +7655,9 @@ document
 
 
       if(slot){
+
+        event.preventDefault();
+
 
         const key =
           slot.dataset.slot;
@@ -6507,7 +7685,7 @@ document
       }
 
 
-      /* SETTINGS */
+      /* SETTING */
 
       const setting =
         target.closest(
@@ -6522,36 +7700,46 @@ document
             .setting;
 
 
-        state.settings[key] =
-          !state.settings[key];
-
-
-        await saveSettings();
-
-
         if(
-          state.page === "profile"
+          Object.prototype
+            .hasOwnProperty
+            .call(
+              state.settings,
+              key
+            )
         ){
 
-          renderProfile();
+          state.settings[key] =
+            !state.settings[key];
 
-        }else{
 
-          renderReminders();
+          await saveSettings();
+
+
+          if(
+            state.page ===
+            "profile"
+          ){
+
+            renderProfile();
+
+          }else{
+
+            renderReminders();
+
+          }
 
         }
 
-
-        return;
-
       }
+
 
     }
   );
 
 
 /* =========================================================
-   26. STATIC EVENTS
+   STATIC EVENTS
 ========================================================= */
 
 $("loginButton")
@@ -6574,7 +7762,8 @@ $("loginPassword")
     event => {
 
       if(
-        event.key === "Enter"
+        event.key ===
+        "Enter"
       ){
 
         signIn();
@@ -6603,7 +7792,9 @@ $("prevWeek")
     "click",
     () => {
 
-      changeWeek(-1);
+      changeWeek(
+        -1
+      );
 
     }
   );
@@ -6614,7 +7805,9 @@ $("nextWeek")
     "click",
     () => {
 
-      changeWeek(1);
+      changeWeek(
+        1
+      );
 
     }
   );
@@ -6702,7 +7895,7 @@ $("saveModal")
 $("deleteSlot")
   .addEventListener(
     "click",
-    deleteSlot
+    deleteCurrentSlot
   );
 
 
@@ -6739,43 +7932,83 @@ $("modalBackdrop")
 
 
 /* =========================================================
-   27. INITIAL SESSION
+   INIT
 ========================================================= */
 
 async function init(){
 
-  const {
-    data,
-    error
-  } =
-    await db.auth
-      .getSession();
+  renderStaticIcons();
 
 
-  if(error){
+  try{
+
+    const {
+      data,
+      error
+    } =
+      await db.auth
+        .getSession();
+
+
+    if(error){
+
+      console.error(
+        "getSession",
+        error
+      );
+
+    }
+
+
+    if(
+      data?.session?.user
+    ){
+
+      showLoading(
+        true
+      );
+
+
+      try{
+
+        await startApp(
+          data.session.user
+        );
+
+
+      }finally{
+
+        showLoading(
+          false
+        );
+
+      }
+
+
+    }else{
+
+      $("authView")
+        .classList
+        .remove(
+          "hidden"
+        );
+
+
+      $("appView")
+        .classList
+        .add(
+          "hidden"
+        );
+
+    }
+
+
+  }catch(error){
 
     console.error(
       error
     );
 
-  }
-
-
-  if(
-    data?.session?.user
-  ){
-
-    showLoading(true);
-
-
-    await startApp(
-      data.session.user
-    );
-
-
-    showLoading(false);
-
-  }else{
 
     $("authView")
       .classList
@@ -6789,6 +8022,11 @@ async function init(){
       .add(
         "hidden"
       );
+
+
+    showAuthMessage(
+      "Không thể kết nối Supabase. Hãy kiểm tra lại kết nối."
+    );
 
   }
 
